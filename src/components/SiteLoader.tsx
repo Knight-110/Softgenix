@@ -20,9 +20,10 @@ const particlePositions = [
 
 const SiteLoader = ({ onComplete }: SiteLoaderProps) => {
   const [progress, setProgress] = useState(0);
+
   const statusText = useMemo(
     () => (progress < 45 ? "Initializing Softgenix" : "Loading digital experience"),
-    [progress],
+    [progress]
   );
 
   useEffect(() => {
@@ -49,13 +50,13 @@ const SiteLoader = ({ onComplete }: SiteLoaderProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(70%_58%_at_50%_12%,hsl(199_89%_48%/0.22),transparent_70%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(40%_45%_at_86%_20%,hsl(188_85%_53%/0.12),transparent_74%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(70%_58%_at_50%_12%,rgba(255,255,255,0.16),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(40%_45%_at_86%_20%,rgba(255,255,255,0.08),transparent_74%)]" />
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-25"
         style={{
           backgroundImage:
-            "linear-gradient(hsl(200 70% 52% / 0.09) 1px, transparent 1px), linear-gradient(90deg, hsl(200 70% 52% / 0.09) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
           backgroundSize: "56px 56px",
           maskImage: "radial-gradient(ellipse at 50% 35%, #000 26%, transparent 78%)",
           WebkitMaskImage: "radial-gradient(ellipse at 50% 35%, #000 26%, transparent 78%)",
@@ -65,7 +66,7 @@ const SiteLoader = ({ onComplete }: SiteLoaderProps) => {
       {particlePositions.map((particle, index) => (
         <motion.span
           key={`${particle.x}-${particle.y}`}
-          className="absolute h-1 w-1 rounded-full bg-cyan/55"
+          className="absolute h-1 w-1 rounded-full bg-white/65"
           style={{ left: particle.x, top: particle.y }}
           animate={{ y: [0, -8, 0], opacity: [0.35, 0.9, 0.35] }}
           transition={{ duration: 2.6 + index * 0.18, repeat: Infinity, ease: "easeInOut" }}
@@ -76,19 +77,19 @@ const SiteLoader = ({ onComplete }: SiteLoaderProps) => {
         <div className="w-full max-w-md text-center">
           <div className="relative mx-auto mb-7 h-40 w-40">
             <motion.div
-              className="absolute inset-0 rounded-full border border-cyan/20"
+              className="absolute inset-0 rounded-full border border-white/22"
               animate={{ rotate: 360 }}
               transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
             />
             <motion.div
-              className="absolute inset-[12px] rounded-full border border-sky-400/15"
+              className="absolute inset-[12px] rounded-full border border-white/14"
               animate={{ rotate: -360 }}
               transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
             />
-            <div className="absolute inset-[26px] overflow-hidden rounded-2xl border border-white/12 bg-black/60 p-2 backdrop-blur-sm">
+            <div className="absolute inset-[26px] overflow-hidden rounded-2xl border border-white/20 bg-black p-2">
               <img src={logo} alt="Softgenix logo" className="h-full w-full rounded-xl object-cover" />
               <motion.div
-                className="pointer-events-none absolute inset-x-0 h-10 bg-gradient-to-b from-transparent via-cyan/35 to-transparent"
+                className="pointer-events-none absolute inset-x-0 h-10 bg-gradient-to-b from-transparent via-white/40 to-transparent"
                 animate={{ y: [-34, 74] }}
                 transition={{ duration: 1.2, repeat: Infinity, ease: [0.4, 0, 0.2, 1] }}
               />
@@ -96,18 +97,15 @@ const SiteLoader = ({ onComplete }: SiteLoaderProps) => {
           </div>
 
           <motion.p
-            className="text-[11px] uppercase tracking-[0.34em] text-cyan/80"
+            className="text-[11px] uppercase tracking-[0.34em] text-white/78"
             animate={{ opacity: [0.55, 1, 0.55] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
           >
             {statusText}
           </motion.p>
 
-          <div className="mt-4 rounded-full border border-white/10 bg-white/[0.03] p-1">
-            <motion.div
-              className="h-1.5 rounded-full bg-gradient-to-r from-sky-500 to-cyan"
-              style={{ width: `${progress}%` }}
-            />
+          <div className="mt-4 rounded-full border border-white/16 bg-black p-1">
+            <motion.div className="h-1.5 rounded-full bg-gradient-to-r from-zinc-200 via-zinc-400 to-zinc-100" style={{ width: `${progress}%` }} />
           </div>
 
           <div className="mt-3 text-xs tracking-[0.2em] text-white/72">{progress}%</div>

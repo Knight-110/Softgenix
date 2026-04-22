@@ -5,7 +5,7 @@ const ScrollProgress = () => {
   return (
     <div className="fixed top-0 left-0 right-0 z-[60] h-[2px] bg-transparent">
       <div
-        className="h-full bg-gradient-brand shadow-glow origin-left"
+        className="h-full bg-gradient-to-r from-white via-zinc-300 to-zinc-500 shadow-glow origin-left"
         style={{ transform: `scaleX(${p})`, transition: "transform 80ms linear" }}
       />
     </div>

@@ -116,7 +116,7 @@ const Navbar = () => {
               <li key={l.id}>
                 <button
                   onClick={() => handleNav(l.id)}
-                  className="w-full text-left px-4 py-3 rounded-xl hover:bg-foreground/5 text-foreground"
+                  className="w-full text-left px-4 py-3 rounded-xl hover:bg-secondary text-foreground"
                 >
                   {l.label}
                 </button>

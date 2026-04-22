@@ -5,17 +5,21 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import FluidBackground from "@/components/effects/FluidBackground";
 import SiteLoader from "@/components/SiteLoader";
-import Index from "./pages/Index.tsx";
-import NotFound from "./pages/NotFound.tsx";
+import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [showLoader, setShowLoader] = useState(() => !sessionStorage.getItem("softgenix_loader_seen"));
+  const [showLoader, setShowLoader] = useState(
+    () => !sessionStorage.getItem("softgenix_loader_seen")
+  );
 
   useEffect(() => {
     const original = document.body.style.overflow;
+
     if (showLoader) {
       document.body.style.overflow = "hidden";
     } else {
@@ -35,24 +39,37 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
+        <div className="app-shell">
+          <div className="app-base" aria-hidden="true" />
+          <FluidBackground />
 
-        <motion.div
-          initial={{ opacity: 0.94 }}
-          animate={{ opacity: showLoader ? 0.94 : 1 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </motion.div>
+          <div className="app-content">
+            <Toaster />
+            <Sonner />
 
-        <AnimatePresence>{showLoader ? <SiteLoader onComplete={handleLoaderComplete} /> : null}</AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0.94 }}
+              animate={{ opacity: showLoader ? 0.94 : 1 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <BrowserRouter
+                future={{
+                  v7_startTransition: true,
+                  v7_relativeSplatPath: true,
+                }}
+              >
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </motion.div>
+          </div>
+
+          <AnimatePresence>
+            {showLoader ? <SiteLoader onComplete={handleLoaderComplete} /> : null}
+          </AnimatePresence>
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );

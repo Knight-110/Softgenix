@@ -1,5 +1,4 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import ImmersiveBackground from "@/components/ImmersiveBackground";
 import ScrollProgress from "@/components/ScrollProgress";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
@@ -19,30 +18,31 @@ const Index = () => {
   useScrollReveal();
 
   return (
-    <main className="relative min-h-screen text-foreground">
-      <ImmersiveBackground />
-      <ScrollProgress />
-      <Navbar />
+    <main className="relative min-h-screen bg-transparent text-foreground">
+      <div className="relative z-10">
+        <ScrollProgress />
+        <Navbar />
 
-      <h1 className="sr-only">
-        Softgenix Infotech — Web Development, Mobile Apps, AI Chatbots & Digital Marketing
-      </h1>
+        <h1 className="sr-only">
+          Softgenix Infotech - Web Development, Mobile Apps, AI Chatbots & Digital Marketing
+        </h1>
 
-      <Hero />
-      <TransitionStrip />
-      <Services />
-      <About />
-      <WhyChooseUs />
-      <Process />
-      <Portfolio />
-      <Testimonials />
-      <CTASection />
-      <Contact />
-      <Footer />
-
-      <FloatingWhatsApp />
+        <Hero />
+        <TransitionStrip />
+        <Services />
+        <About />
+        <WhyChooseUs />
+        <Process />
+        <Portfolio />
+        <Testimonials />
+        <CTASection />
+        <Contact />
+        <Footer />
+        <FloatingWhatsApp />
+      </div>
     </main>
   );
 };
 
 export default Index;
+

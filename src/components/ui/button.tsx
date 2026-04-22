@@ -9,18 +9,18 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-foreground text-background hover:bg-foreground/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-input bg-transparent text-foreground hover:bg-foreground/6",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-foreground/5 text-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         hero:
-          "relative overflow-hidden bg-gradient-brand text-primary-foreground font-semibold shadow-glow hover:shadow-elevated hover:-translate-y-0.5 active:translate-y-0 before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent,hsl(0_0%_100%/0.25),transparent)] before:translate-x-[-120%] hover:before:translate-x-[120%] before:transition-transform before:duration-700",
+          "relative overflow-hidden border border-white/20 bg-white text-black font-semibold shadow-elevated hover:bg-white/94 hover:-translate-y-0.5 active:translate-y-0 before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent,hsl(0_0%_100%/0.35),transparent)] before:translate-x-[-120%] hover:before:translate-x-[120%] before:transition-transform before:duration-700",
         glass:
-          "glass-strong text-foreground hover:bg-foreground/5 magnetic-glow",
+          "glass-strong text-foreground hover:bg-secondary magnetic-glow",
         outlineGlow:
-          "border border-primary/40 text-foreground bg-transparent hover:bg-primary/10 hover:border-primary/70 hover:shadow-glow",
+          "border border-white/26 text-foreground bg-transparent hover:bg-secondary hover:border-white/44",
       },
       size: {
         default: "h-11 px-5 py-2",
