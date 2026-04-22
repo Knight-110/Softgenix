@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { openWhatsApp } from "@/lib/whatsapp";
 import logo from "@/assets/softgenix-logo.jpeg";
+import WhatsAppModal from "@/components/WhatsAppModal";
 
 const links = [
   { id: "services", label: "Services" },
@@ -14,6 +14,7 @@ const links = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -25,6 +26,11 @@ const Navbar = () => {
   const handleNav = (id: string) => {
     setOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleOpenWhatsAppModal = () => {
+    setOpen(false);
+    setIsWhatsAppModalOpen(true);
   };
 
   return (
@@ -73,10 +79,10 @@ const Navbar = () => {
             <Button
               variant="hero"
               size="sm"
-              onClick={() => openWhatsApp("Hi Softgenix, I'd like to discuss a project.")}
+              onClick={handleOpenWhatsAppModal}
               className="hidden sm:inline-flex"
             >
-              Chat on WhatsApp
+              LET'S TALK
             </Button>
             <button
               className="md:hidden h-10 w-10 grid place-items-center rounded-xl glass"
@@ -120,7 +126,7 @@ const Navbar = () => {
               <Button
                 variant="hero"
                 className="w-full"
-                onClick={() => openWhatsApp("Hi Softgenix, I'd like to discuss a project.")}
+                onClick={handleOpenWhatsAppModal}
               >
                 Chat on WhatsApp
               </Button>
@@ -128,6 +134,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+      <WhatsAppModal open={isWhatsAppModalOpen} onOpenChange={setIsWhatsAppModalOpen} />
     </header>
   );
 };
