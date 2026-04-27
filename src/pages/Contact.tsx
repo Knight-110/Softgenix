@@ -7,8 +7,8 @@ const Contact = () => {
     <PageShell>
       <PageIntro
         eyebrow="Contact"
-        title="Let’s talk about the next thing you want to ship."
-        description="Share the idea, the timeline, and the rough budget. We’ll keep it direct and get you to the right next step quickly."
+        title="Let's talk about the next thing you want to ship."
+        description="Share the idea, the timeline, and the rough budget. We'll keep it direct and get you to the right next step quickly."
       />
       <ContactSection />
     </PageShell>

@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { openWhatsApp } from "@/lib/whatsapp";
-import { ArrowRight } from "lucide-react";
 
 const CTASection = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative py-28 md:py-36">
       <div className="container">
@@ -14,8 +17,7 @@ const CTASection = () => {
               backgroundImage:
                 "linear-gradient(hsl(0 0% 100% / 0.08) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.08) 1px, transparent 1px)",
               backgroundSize: "48px 48px",
-              maskImage:
-                "radial-gradient(ellipse at center, #000 30%, transparent 75%)",
+              maskImage: "radial-gradient(ellipse at center, #000 30%, transparent 75%)",
               WebkitMaskImage:
                 "radial-gradient(ellipse at center, #000 30%, transparent 75%)",
             }}
@@ -30,14 +32,12 @@ const CTASection = () => {
             <h2 className="mt-6 font-display text-4xl font-bold leading-[1.0] md:text-7xl">
               Ready to make
               <br />
-              <span className="text-foreground">
-                something extraordinary?
-              </span>
+              <span className="text-foreground">something extraordinary?</span>
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg text-secondary-foreground">
-              Tell us about your idea on WhatsApp. We usually reply within an
-              hour during business hours.
+              Tell us about your idea on WhatsApp. We usually reply within an hour during
+              business hours.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -45,25 +45,13 @@ const CTASection = () => {
                 variant="hero"
                 size="xl"
                 data-cursor-ignore
-                onClick={() =>
-                  openWhatsApp(
-                    "Hi Softgenix, I'd like to discuss a new project. "
-                  )
-                }
+                onClick={() => openWhatsApp("Hi Softgenix, I'd like to discuss a new project. ")}
               >
                 Chat on WhatsApp
                 <ArrowRight className="h-4 w-4" />
               </Button>
 
-              <Button
-                variant="outlineGlow"
-                size="xl"
-                onClick={() =>
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
+              <Button variant="outlineGlow" size="xl" onClick={() => navigate("/lets-talk")}>
                 Send a brief
               </Button>
             </div>

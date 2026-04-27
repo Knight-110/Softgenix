@@ -1,9 +1,7 @@
-import { lazy, Suspense, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/softgenix-logo.jpeg";
-
-const WhatsAppModal = lazy(() => import("@/components/WhatsAppModal"));
 
 const links = [
   { to: "/services", label: "Services" },
@@ -18,13 +16,11 @@ const navLinkClass = ({ isActive }: { isActive: boolean }) =>
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
-  const [hasOpenedWhatsAppModal, setHasOpenedWhatsAppModal] = useState(false);
+  const navigate = useNavigate();
 
-  const handleOpenWhatsAppModal = () => {
+  const handleOpenContact = () => {
     setOpen(false);
-    setHasOpenedWhatsAppModal(true);
-    setIsWhatsAppModalOpen(true);
+    navigate("/lets-talk");
   };
 
   return (
@@ -71,7 +67,7 @@ const Navbar = () => {
             <Button
               variant="glass"
               size="sm"
-              onClick={handleOpenWhatsAppModal}
+              onClick={handleOpenContact}
               className="hidden h-10 rounded-full border border-white/24 bg-white/[0.08] px-5 font-display text-[11px] uppercase tracking-[0.28em] text-white shadow-[0_16px_40px_-28px_rgba(91,191,255,0.9)] transition-all duration-300 hover:border-white/44 hover:bg-white/[0.14] sm:inline-flex"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#73d7ff]" aria-hidden="true" />
@@ -123,7 +119,7 @@ const Navbar = () => {
               <Button
                 variant="glass"
                 className="w-full rounded-full border border-white/24 bg-white/[0.08] py-5 font-display text-[11px] uppercase tracking-[0.24em] text-white hover:border-white/42 hover:bg-white/[0.12]"
-                onClick={handleOpenWhatsAppModal}
+                onClick={handleOpenContact}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[#73d7ff]" aria-hidden="true" />
                 <span>LET&apos;S TALK</span>
@@ -132,11 +128,6 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-      {hasOpenedWhatsAppModal ? (
-        <Suspense fallback={null}>
-          <WhatsAppModal open={isWhatsAppModalOpen} onOpenChange={setIsWhatsAppModalOpen} />
-        </Suspense>
-      ) : null}
     </header>
   );
 };

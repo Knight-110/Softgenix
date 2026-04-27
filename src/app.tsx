@@ -10,6 +10,7 @@ import SiteLoader from "@/components/SiteLoader";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Index from "./pages/Index";
+import LetsTalk from "./pages/LetsTalk";
 import NotFound from "./pages/NotFound";
 import Process from "./pages/Process";
 import Services from "./pages/Services";
@@ -70,6 +71,7 @@ const App = () => {
                   <Route path="/process" element={<Process />} />
                   <Route path="/portfolio" element={<Work />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/lets-talk" element={<LetsTalk />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>
