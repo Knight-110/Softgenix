@@ -1,34 +1,25 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/softgenix-logo.jpeg";
 
 const WhatsAppModal = lazy(() => import("@/components/WhatsAppModal"));
 
 const links = [
-  { id: "services", label: "Services" },
-  { id: "about", label: "About" },
-  { id: "process", label: "Process" },
-  { id: "work", label: "Work" },
-  { id: "contact", label: "Contact" },
+  { to: "/services", label: "Services" },
+  { to: "/about", label: "About" },
+  { to: "/process", label: "Process" },
+  { to: "/portfolio", label: "Portfolio" },
+  { to: "/contact", label: "Contact" },
 ];
 
+const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+  `block transition-colors ${isActive ? "text-white" : "text-zinc-400 hover:text-white"}`;
+
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
   const [hasOpenedWhatsAppModal, setHasOpenedWhatsAppModal] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleNav = (id: string) => {
-    setOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   const handleOpenWhatsAppModal = () => {
     setOpen(false);
@@ -37,43 +28,41 @@ const Navbar = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? "py-3" : "py-5"
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/95 backdrop-blur-md">
       <div className="container">
-        <nav
-          className={`flex items-center justify-between gap-6 px-4 md:px-6 py-3 rounded-2xl transition-all duration-500 ${
-            scrolled ? "glass-strong shadow-card" : "bg-transparent"
-          }`}
-        >
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        <nav className="flex items-center justify-between gap-6 px-4 py-3 md:px-6">
+          <Link
+            to="/"
             className="flex items-center gap-3 group"
             aria-label="Softgenix Infotech home"
+            onClick={() => setOpen(false)}
           >
-            <span className="relative h-10 w-10 rounded-xl overflow-hidden ring-1 ring-primary/30 shadow-glow">
+            <span className="relative h-10 w-10 overflow-hidden rounded-xl ring-1 ring-primary/30 shadow-glow">
               <img src={logo} alt="Softgenix Infotech logo" className="h-full w-full object-cover" />
             </span>
             <span className="hidden sm:flex flex-col leading-none">
-              <span className="font-display text-base font-semibold tracking-wider text-foreground">
+              <span className="font-display text-base font-semibold tracking-wider text-white">
                 SOFTGENIX
               </span>
-              <span className="text-[10px] tracking-[0.3em] text-muted-foreground">INFOTECH</span>
+              <span className="text-[10px] tracking-[0.3em] text-zinc-400">INFOTECH</span>
             </span>
-          </button>
+          </Link>
 
-          <ul className="hidden md:flex items-center gap-1">
-            {links.map((l) => (
-              <li key={l.id}>
-                <button
-                  onClick={() => handleNav(l.id)}
-                  className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors relative group"
-                >
-                  {l.label}
-                  <span className="absolute left-4 right-4 -bottom-0.5 h-px bg-gradient-brand opacity-0 group-hover:opacity-100 transition-opacity" />
-                </button>
+          <ul className="hidden items-center gap-1 md:flex">
+            {links.map((link) => (
+              <li key={link.to}>
+                <NavLink to={link.to} className={navLinkClass}>
+                  {({ isActive }) => (
+                    <span className="group relative block px-4 py-2 text-sm">
+                      {link.label}
+                      <span
+                        className={`absolute left-4 right-4 -bottom-0.5 h-px bg-white transition-opacity ${
+                          isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                        }`}
+                      />
+                    </span>
+                  )}
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -83,24 +72,24 @@ const Navbar = () => {
               variant="glass"
               size="sm"
               onClick={handleOpenWhatsAppModal}
-              className="hidden sm:inline-flex h-10 rounded-full border border-white/24 bg-white/[0.06] px-5 font-display text-[11px] uppercase tracking-[0.28em] text-white shadow-[0_16px_40px_-28px_rgba(91,191,255,0.9)] transition-all duration-300 hover:border-white/44 hover:bg-white/[0.12]"
+              className="hidden h-10 rounded-full border border-white/24 bg-white/[0.08] px-5 font-display text-[11px] uppercase tracking-[0.28em] text-white shadow-[0_16px_40px_-28px_rgba(91,191,255,0.9)] transition-all duration-300 hover:border-white/44 hover:bg-white/[0.14] sm:inline-flex"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#73d7ff]" aria-hidden="true" />
               <span>LET&apos;S TALK</span>
             </Button>
             <button
-              className="md:hidden h-10 w-10 grid place-items-center rounded-xl glass"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-white/12 bg-white/5 md:hidden"
               aria-label="Toggle menu"
               onClick={() => setOpen((o) => !o)}
             >
               <span className="relative block h-3 w-5">
                 <span
-                  className={`absolute inset-x-0 top-0 h-px bg-foreground transition-transform ${
+                  className={`absolute inset-x-0 top-0 h-px bg-white transition-transform ${
                     open ? "translate-y-1.5 rotate-45" : ""
                   }`}
                 />
                 <span
-                  className={`absolute inset-x-0 bottom-0 h-px bg-foreground transition-transform ${
+                  className={`absolute inset-x-0 bottom-0 h-px bg-white transition-transform ${
                     open ? "-translate-y-1.5 -rotate-45" : ""
                   }`}
                 />
@@ -109,27 +98,31 @@ const Navbar = () => {
           </div>
         </nav>
 
-        {/* Mobile menu */}
         <div
-          className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-500 ${
-            open ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"
+          className={`overflow-hidden transition-[max-height,opacity] duration-500 md:hidden ${
+            open ? "mt-2 max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <ul className="glass-strong rounded-2xl p-2 flex flex-col">
-            {links.map((l) => (
-              <li key={l.id}>
-                <button
-                  onClick={() => handleNav(l.id)}
-                  className="w-full text-left px-4 py-3 rounded-xl hover:bg-secondary text-foreground"
+          <ul className="flex flex-col rounded-2xl border border-white/10 bg-black p-2">
+            {links.map((link) => (
+              <li key={link.to}>
+                <NavLink
+                  to={link.to}
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `block w-full rounded-xl px-4 py-3 text-left transition-colors ${
+                      isActive ? "bg-white/10 text-white" : "text-zinc-300 hover:bg-white/5 hover:text-white"
+                    }`
+                  }
                 >
-                  {l.label}
-                </button>
+                  {link.label}
+                </NavLink>
               </li>
             ))}
             <li className="p-2">
               <Button
                 variant="glass"
-                className="w-full rounded-full border border-white/24 bg-white/[0.06] py-5 font-display text-[11px] uppercase tracking-[0.24em] text-white hover:border-white/42 hover:bg-white/[0.11]"
+                className="w-full rounded-full border border-white/24 bg-white/[0.08] py-5 font-display text-[11px] uppercase tracking-[0.24em] text-white hover:border-white/42 hover:bg-white/[0.12]"
                 onClick={handleOpenWhatsAppModal}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[#73d7ff]" aria-hidden="true" />

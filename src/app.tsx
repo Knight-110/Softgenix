@@ -7,8 +7,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import FluidBackground from "@/components/effects/FluidBackground";
 import SiteLoader from "@/components/SiteLoader";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Process from "./pages/Process";
+import Services from "./pages/Services";
+import Work from "./pages/Work";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +65,11 @@ const App = () => {
               >
                 <Routes>
                   <Route path="/" element={<Index />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/process" element={<Process />} />
+                  <Route path="/portfolio" element={<Work />} />
+                  <Route path="/contact" element={<Contact />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>

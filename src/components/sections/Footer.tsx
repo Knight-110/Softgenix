@@ -1,16 +1,17 @@
-﻿import logo from "@/assets/softgenix-logo.jpeg";
+import { Link } from "react-router-dom";
+import logo from "@/assets/softgenix-logo.jpeg";
 import { openWhatsApp } from "@/lib/whatsapp";
 
 const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative pt-20 pb-10 border-t border-border/70">
+    <footer className="relative border-t border-border/70 pt-20 pb-10">
       <div className="container">
-        <div className="grid md:grid-cols-12 gap-12">
+        <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3">
-              <span className="h-11 w-11 rounded-xl overflow-hidden ring-1 ring-white/30 shadow-glow">
+              <span className="h-11 w-11 overflow-hidden rounded-xl ring-1 ring-white/30 shadow-glow">
                 <img src={logo} alt="Softgenix Infotech" className="h-full w-full object-cover" />
               </span>
               <div>
@@ -18,13 +19,13 @@ const Footer = () => {
                 <div className="text-[10px] tracking-[0.3em] text-muted-foreground">INFOTECH</div>
               </div>
             </div>
-            <p className="mt-6 text-secondary-foreground max-w-sm leading-relaxed">
+            <p className="mt-6 max-w-sm text-secondary-foreground leading-relaxed">
               A multidisciplinary technology and growth studio building cinematic digital products
               for ambitious brands.
             </p>
             <button
               onClick={() => openWhatsApp("Hi Softgenix, I have a quick question.")}
-              className="mt-6 inline-flex items-center gap-2 text-sm text-foreground hover:text-foreground/80 transition-colors"
+              className="mt-6 inline-flex items-center gap-2 text-sm text-foreground transition-colors hover:text-foreground/80"
             >
               <span className="h-2 w-2 rounded-full bg-foreground animate-pulse-glow" />
               We are online, chat with us
@@ -35,24 +36,24 @@ const Footer = () => {
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Studio</div>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                <a href="#about" className="hover:text-foreground/80 transition-colors">
+                <Link to="/about" className="transition-colors hover:text-foreground/80">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#process" className="hover:text-foreground/80 transition-colors">
+                <Link to="/process" className="transition-colors hover:text-foreground/80">
                   Process
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#work" className="hover:text-foreground/80 transition-colors">
-                  Work
-                </a>
+                <Link to="/portfolio" className="transition-colors hover:text-foreground/80">
+                  Portfolio
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-foreground/80 transition-colors">
+                <Link to="/contact" className="transition-colors hover:text-foreground/80">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -61,24 +62,24 @@ const Footer = () => {
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Services</div>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                <a href="#services" className="hover:text-foreground/80 transition-colors">
+                <Link to="/services" className="transition-colors hover:text-foreground/80">
                   Web
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-foreground/80 transition-colors">
+                <Link to="/services" className="transition-colors hover:text-foreground/80">
                   Mobile
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-foreground/80 transition-colors">
+                <Link to="/services" className="transition-colors hover:text-foreground/80">
                   AI Chatbots
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-foreground/80 transition-colors">
+                <Link to="/services" className="transition-colors hover:text-foreground/80">
                   Marketing
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -91,7 +92,7 @@ const Footer = () => {
               <li>
                 <button
                   onClick={() => openWhatsApp("Hi Softgenix!")}
-                  className="text-foreground hover:text-foreground/80 transition-colors"
+                  className="text-foreground transition-colors hover:text-foreground/80"
                 >
                   WhatsApp us {"->"}
                 </button>
@@ -101,13 +102,13 @@ const Footer = () => {
         </div>
 
         <div className="hairline mt-16" />
-        <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="mt-6 flex flex-col items-center justify-between gap-3 text-xs text-muted-foreground md:flex-row">
           <div>(c) {year} Softgenix Infotech. All rights reserved.</div>
           <div className="flex items-center gap-5">
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a href="#" className="transition-colors hover:text-foreground">
               Privacy
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a href="#" className="transition-colors hover:text-foreground">
               Terms
             </a>
             <span>Crafted with cinematic intent.</span>

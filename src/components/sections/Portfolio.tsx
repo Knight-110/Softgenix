@@ -25,12 +25,12 @@ const projects = [
 
 const Portfolio = () => {
   return (
-    <section id="work" className="relative py-28 md:py-36">
+    <section id="portfolio" className="relative py-28 md:py-36">
       <div className="container">
         <div className="flex items-end justify-between gap-8 flex-wrap reveal">
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[11px] tracking-[0.3em] uppercase text-secondary-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-foreground/80" /> Selected Work
+              <span className="h-1.5 w-1.5 rounded-full bg-foreground/80" /> Selected Portfolio
             </span>
             <h2 className="mt-6 font-display text-4xl md:text-6xl font-bold leading-[1.05]">
               Recent stories

@@ -1,6 +1,4 @@
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-import ScrollProgress from "@/components/ScrollProgress";
-import Navbar from "@/components/Navbar";
+import PageShell from "@/components/PageShell";
 import Hero from "@/components/sections/Hero";
 import TransitionStrip from "@/components/sections/TransitionStrip";
 import Services from "@/components/sections/Services";
@@ -11,18 +9,11 @@ import Portfolio from "@/components/sections/Portfolio";
 import Testimonials from "@/components/sections/Testimonials";
 import CTASection from "@/components/sections/CTASection";
 import Contact from "@/components/sections/Contact";
-import Footer from "@/components/sections/Footer";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 const Index = () => {
-  useScrollReveal();
-
   return (
-    <main className="relative min-h-screen bg-transparent text-foreground">
-      <div className="relative z-10">
-        <ScrollProgress />
-        <Navbar />
-
+    <PageShell>
+      <>
         <h1 className="sr-only">
           Softgenix Infotech - Web Development, Mobile Apps, AI Chatbots & Digital Marketing
         </h1>
@@ -37,12 +28,9 @@ const Index = () => {
         <Testimonials />
         <CTASection />
         <Contact />
-        <Footer />
-        <FloatingWhatsApp />
-      </div>
-    </main>
+      </>
+    </PageShell>
   );
 };
 
 export default Index;
-

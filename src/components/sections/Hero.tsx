@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { openWhatsApp } from "@/lib/whatsapp";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const Hero = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let raf = 0;
@@ -65,7 +67,7 @@ const Hero = () => {
               Chat on WhatsApp
               <ArrowRight className="h-4 w-4" />
             </Button>
-            <Button variant="glass" size="xl" onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}>
+            <Button variant="glass" size="xl" onClick={() => navigate("/services")}>
               Explore Services
             </Button>
           </div>
