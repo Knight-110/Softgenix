@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/softgenix-logo.jpeg";
-import WhatsAppModal from "@/components/WhatsAppModal";
+
+const WhatsAppModal = lazy(() => import("@/components/WhatsAppModal"));
 
 const links = [
   { id: "services", label: "Services" },
@@ -15,6 +16,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
+  const [hasOpenedWhatsAppModal, setHasOpenedWhatsAppModal] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -30,6 +32,7 @@ const Navbar = () => {
 
   const handleOpenWhatsAppModal = () => {
     setOpen(false);
+    setHasOpenedWhatsAppModal(true);
     setIsWhatsAppModalOpen(true);
   };
 
@@ -77,12 +80,13 @@ const Navbar = () => {
 
           <div className="flex items-center gap-2">
             <Button
-              variant="hero"
+              variant="glass"
               size="sm"
               onClick={handleOpenWhatsAppModal}
-              className="hidden sm:inline-flex"
+              className="hidden sm:inline-flex h-10 rounded-full border border-white/24 bg-white/[0.06] px-5 font-display text-[11px] uppercase tracking-[0.28em] text-white shadow-[0_16px_40px_-28px_rgba(91,191,255,0.9)] transition-all duration-300 hover:border-white/44 hover:bg-white/[0.12]"
             >
-              LET'S TALK
+              <span className="h-1.5 w-1.5 rounded-full bg-[#73d7ff]" aria-hidden="true" />
+              <span>LET&apos;S TALK</span>
             </Button>
             <button
               className="md:hidden h-10 w-10 grid place-items-center rounded-xl glass"
@@ -124,17 +128,22 @@ const Navbar = () => {
             ))}
             <li className="p-2">
               <Button
-                variant="hero"
-                className="w-full"
+                variant="glass"
+                className="w-full rounded-full border border-white/24 bg-white/[0.06] py-5 font-display text-[11px] uppercase tracking-[0.24em] text-white hover:border-white/42 hover:bg-white/[0.11]"
                 onClick={handleOpenWhatsAppModal}
               >
-                Chat on WhatsApp
+                <span className="h-1.5 w-1.5 rounded-full bg-[#73d7ff]" aria-hidden="true" />
+                <span>LET&apos;S TALK</span>
               </Button>
             </li>
           </ul>
         </div>
       </div>
-      <WhatsAppModal open={isWhatsAppModalOpen} onOpenChange={setIsWhatsAppModalOpen} />
+      {hasOpenedWhatsAppModal ? (
+        <Suspense fallback={null}>
+          <WhatsAppModal open={isWhatsAppModalOpen} onOpenChange={setIsWhatsAppModalOpen} />
+        </Suspense>
+      ) : null}
     </header>
   );
 };
