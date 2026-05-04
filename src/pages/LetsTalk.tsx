@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Home, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import LusionParticles from "@/components/LusionParticles";
+import AnimatedLoopText from "@/components/AnimatedLoopText";
 import { Button } from "@/components/ui/button";
 import { openWhatsApp } from "@/lib/whatsapp";
 
@@ -31,11 +32,11 @@ const LetsTalk = () => {
             IS YOUR BIG IDEA READY TO GO WILD?
           </p>
 
-          <h1 className="mt-16 font-display text-[clamp(4.8rem,13vw,10.5rem)] leading-[0.88] tracking-[-0.07em] text-white">
-            Let&apos;s work
-            <br />
-            together!
-          </h1>
+<h1 className="mt-16 font-display text-[clamp(4.8rem,13vw,10.5rem)] leading-[1.02] tracking-[-0.07em] text-white">
+  <AnimatedLoopText text={"Let's work"} />
+  <br />
+  <AnimatedLoopText text="together!" />
+</h1>
 
           <div className="mt-auto pb-10 sm:pb-14">
             <Button

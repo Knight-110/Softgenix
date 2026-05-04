@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -193,6 +194,115 @@
 }
 
 @layer utilities {
+  .animated-loop-text {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: visible;
+  }
+
+  /* 🔥 synced underline */
+  .animated-loop-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.08em;
+    display: flex;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+
+    transform: scaleX(0);
+    transform-origin: left center;
+
+    /* ✅ synced with JS interval (1000ms) */
+   animation: underline-scroll 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  }
+
+@keyframes underline-scroll {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+  .underline-piece {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+  }
+
+.underline-piece::after {
+  content: "";
+  position: absolute;
+  left: -0.01em;
+  right: -0.01em;
+  bottom: 0;
+  height: 0.055em;
+  border-radius: 999px;
+  background: #ffffff;
+}
+
+  /* gap under g */
+  .underline-piece.is-gap::after {
+    display: none;
+  }
+
+  .animated-loop-letter {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    vertical-align: baseline;
+  }
+
+  .loop-letter-window {
+    display: inline-block;
+    height: 1.05em;
+    overflow: hidden;
+    vertical-align: -0.06em;
+  }
+
+  .loop-letter-track {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05em;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .loop-letter-track span {
+    display: block;
+    height: 1.05em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loop-letter-track {
+      transition: none !important;
+      transform: none !important;
+    }
+
+    .animated-loop-underline {
+      animation: none;
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
   .font-display {
     font-family: "Sora", "Manrope", sans-serif;
     letter-spacing: -0.02em;
@@ -203,11 +313,9 @@
   }
 
   @keyframes float-slow {
-    0%,
-    100% {
+    0%, 100% {
       transform: translate3d(0, 0, 0);
     }
-
     50% {
       transform: translate3d(0, -24px, 0);
     }
@@ -217,23 +325,19 @@
     0% {
       transform: translate3d(0, 0, 0) rotate(0deg);
     }
-
     50% {
       transform: translate3d(40px, -30px, 0) rotate(180deg);
     }
-
     100% {
       transform: translate3d(0, 0, 0) rotate(360deg);
     }
   }
 
   @keyframes pulse-glow {
-    0%,
-    100% {
+    0%, 100% {
       opacity: 0.5;
       transform: scale(1);
     }
-
     50% {
       opacity: 1;
       transform: scale(1.05);
@@ -244,7 +348,6 @@
     0% {
       background-position: -200% 0;
     }
-
     100% {
       background-position: 200% 0;
     }
@@ -254,7 +357,6 @@
     from {
       transform: translateX(0);
     }
-
     to {
       transform: translateX(-50%);
     }
@@ -277,7 +379,12 @@
   }
 
   .shimmer {
-    background: linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.15), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(0 0% 100% / 0.15),
+      transparent
+    );
     background-size: 200% 100%;
     animation: shimmer 3s linear infinite;
   }
