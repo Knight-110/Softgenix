@@ -6,6 +6,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import FluidBackground from "@/components/effects/FluidBackground";
+import Navbar from "@/components/Navbar";
 import SiteLoader from "@/components/SiteLoader";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -64,6 +65,8 @@ const App = () => {
                   v7_relativeSplatPath: true,
                 }}
               >
+                <Navbar />
+
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/services" element={<Services />} />

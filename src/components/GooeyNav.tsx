@@ -129,12 +129,6 @@ const GooeyNav = ({
       point.classList.add("point");
       particle.appendChild(point);
       element.appendChild(particle);
-
-      window.setTimeout(() => {
-        if (element.contains(particle)) {
-          element.removeChild(particle);
-        }
-      }, t);
     }
   };
 
@@ -149,7 +143,6 @@ const GooeyNav = ({
     textRef.current.classList.remove("active");
 
     void filterRef.current.offsetWidth;
-    void textRef.current.offsetWidth;
 
     requestAnimationFrame(() => {
       if (!filterRef.current || !textRef.current) return;
@@ -170,26 +163,9 @@ const GooeyNav = ({
     const liEl = event.currentTarget.closest("li");
     runEffect(index, liEl);
 
-    window.setTimeout(() => {
+    requestAnimationFrame(() => {
       navigate(href);
-    }, 500);
-  };
-
-  const handleKeyboardNavigate = (
-    event: React.KeyboardEvent<HTMLAnchorElement>,
-    index: number,
-    href: string
-  ) => {
-    if (event.key !== "Enter" && event.key !== " ") return;
-
-    event.preventDefault();
-
-    const liEl = event.currentTarget.closest("li");
-    runEffect(index, liEl);
-
-    window.setTimeout(() => {
-      navigate(href);
-    }, 220);
+    });
   };
 
   useEffect(() => {
@@ -244,9 +220,19 @@ const GooeyNav = ({
                 href={item.href}
                 aria-current={activeIndex === index ? "page" : undefined}
                 onClick={(event) => handleNavigate(event, index, item.href)}
-                onKeyDown={(event) =>
-                  handleKeyboardNavigate(event, index, item.href)
-                }
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+
+                    const liEl = event.currentTarget.closest("li");
+
+                    runEffect(index, liEl);
+
+                    requestAnimationFrame(() => {
+                      navigate(item.href);
+                    });
+                  }
+                }}
               >
                 {item.label}
               </a>

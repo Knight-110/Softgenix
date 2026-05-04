@@ -63,8 +63,8 @@
 
 .gooey-nav-container nav ul li:focus-within a {
   box-shadow:
-    0 0 0 1px rgba(103, 232, 249, 0.82),
-    0 0 0 4px rgba(6, 191, 253, 0.14);
+    0 0 0 1px rgba(255, 255, 255, 0.82),
+    0 0 0 4px rgba(255, 255, 255, 0.14);
 }
 
 .gooey-nav-container nav ul li.active,
@@ -92,8 +92,8 @@
   opacity: 1;
   transform: scale(1);
   box-shadow:
-    0 0 18px rgba(6, 191, 253, 0.22),
-    0 0 38px rgba(6, 191, 253, 0.12);
+    0 0 18px rgba(255, 255, 255, 0.22),
+    0 0 38px rgba(255, 255, 255, 0.12);
 }
 
 .gooey-nav-container .effect {
@@ -189,8 +189,8 @@
     var(--color);
   opacity: 1;
   box-shadow:
-    0 0 10px rgba(6, 191, 253, 0.52),
-    0 0 18px rgba(6, 191, 253, 0.2);
+    0 0 10px rgba(238, 238, 238, 0.52),
+    0 0 18px rgba(255, 255, 255, 0.2);
   animation: gooey-point var(--time) ease 1 -350ms;
 }
 

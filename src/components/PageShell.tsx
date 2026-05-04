@@ -1,6 +1,5 @@
 import { type ReactNode, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/sections/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -31,7 +30,6 @@ const PageShell = ({ children }: PageShellProps) => {
     <main className="relative min-h-screen bg-transparent text-foreground">
       <div className="relative z-10">
         <ScrollProgress />
-        <Navbar />
         {children}
         <Footer />
         <FloatingWhatsApp />
