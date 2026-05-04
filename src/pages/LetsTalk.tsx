@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Home, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import LusionParticles from "@/components/LusionParticles";
 import { Button } from "@/components/ui/button";
 import { openWhatsApp } from "@/lib/whatsapp";
 
@@ -10,8 +11,10 @@ const LetsTalk = () => {
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#2837ff] text-white">
-      <section className="relative flex min-h-screen flex-col overflow-hidden px-8 py-8 sm:px-12 lg:px-16">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[#2837ff] text-white">
+      <LusionParticles />
+
+      <section className="relative z-10 flex min-h-screen flex-col overflow-hidden px-8 py-8 sm:px-12 lg:px-16">
         <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1240px] flex-col items-center text-center">
           <div className="flex w-full justify-end">
             <Link
