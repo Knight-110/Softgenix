@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import logo from "@/assets/softgenix-logo.jpeg";
 
 const links = [
+  { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
   { to: "/process", label: "Process" },
