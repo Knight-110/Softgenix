@@ -1,0 +1,254 @@
+.gooey-nav-container {
+  --color-1: #ffffff;
+  --color-2: #ffffff;
+  --color-3: #ffffff;
+  --color-4: #ffffff;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  overflow: visible;
+}
+
+.gooey-nav-container nav {
+  position: relative;
+  display: flex;
+  transform: translate3d(0, 0, 0.01px);
+}
+
+.gooey-nav-container nav ul {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.gooey-nav-container nav ul li {
+  position: relative;
+  border-radius: 999px;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.gooey-nav-container nav ul li a {
+  position: relative;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.22);
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.gooey-nav-container nav ul li a:hover {
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.gooey-nav-container nav ul li:focus-within a {
+  box-shadow:
+    0 0 0 1px rgba(103, 232, 249, 0.82),
+    0 0 0 4px rgba(6, 191, 253, 0.14);
+}
+
+.gooey-nav-container nav ul li.active,
+.gooey-nav-container nav ul li.active a {
+  color: #020617;
+  text-shadow: none;
+}
+
+.gooey-nav-container nav ul li::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  opacity: 0;
+  transform: scale(0.72);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+  z-index: -1;
+}
+
+.gooey-nav-container nav ul li.active::after {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow:
+    0 0 18px rgba(6, 191, 253, 0.22),
+    0 0 38px rgba(6, 191, 253, 0.12);
+}
+
+.gooey-nav-container .effect {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+
+.gooey-nav-container .effect.text {
+  z-index: 4;
+  min-height: 38px;
+  padding: 0 1rem;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+.gooey-nav-container .effect.text.active {
+  color: #020617;
+  opacity: 1;
+}
+
+.gooey-nav-container .effect.filter {
+  z-index: 1;
+  filter: blur(7px) contrast(110);
+  mix-blend-mode: screen;
+}
+
+.gooey-nav-container .effect.filter::before {
+  content: "";
+  position: absolute;
+  inset: -70px;
+  z-index: -2;
+  background: transparent;
+}
+
+.gooey-nav-container .effect.filter::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow:
+    0 0 22px rgba(255, 255, 255, 0.36),
+    0 0 46px rgba(255, 255, 255, 0.22);
+  transform: scale(0);
+  opacity: 0;
+  z-index: -1;
+}
+
+.gooey-nav-container .effect.active::after {
+  animation: gooey-pill 0.34s ease both;
+}
+
+@keyframes gooey-pill {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.gooey-nav-container .particle,
+.gooey-nav-container .point {
+  display: block;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  border-radius: 999px;
+  transform-origin: center;
+}
+
+.gooey-nav-container .particle {
+  --time: 5s;
+
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  animation: gooey-particle var(--time) ease 1 -350ms;
+}
+
+.gooey-nav-container .point {
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.98), transparent 34%),
+    var(--color);
+  opacity: 1;
+  box-shadow:
+    0 0 10px rgba(6, 191, 253, 0.52),
+    0 0 18px rgba(6, 191, 253, 0.2);
+  animation: gooey-point var(--time) ease 1 -350ms;
+}
+
+@keyframes gooey-particle {
+  0% {
+    transform: rotate(0deg) translate(var(--start-x), var(--start-y));
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+
+  70% {
+    transform: rotate(calc(var(--rotate) * 0.5))
+      translate(calc(var(--end-x) * 1.2), calc(var(--end-y) * 1.2));
+    opacity: 1;
+    animation-timing-function: ease;
+  }
+
+  85% {
+    transform: rotate(calc(var(--rotate) * 0.66))
+      translate(var(--end-x), var(--end-y));
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(calc(var(--rotate) * 1.2))
+      translate(calc(var(--end-x) * 0.5), calc(var(--end-y) * 0.5));
+    opacity: 0;
+  }
+}
+
+@keyframes gooey-point {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+
+  25% {
+    transform: scale(calc(var(--scale) * 0.25));
+  }
+
+  38% {
+    opacity: 1;
+  }
+
+  65% {
+    transform: scale(var(--scale));
+    opacity: 1;
+    animation-timing-function: ease;
+  }
+
+  85% {
+    transform: scale(var(--scale));
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

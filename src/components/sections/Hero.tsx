@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import GradientBlinds from "@/components/GradientBlinds";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { openWhatsApp } from "@/lib/whatsapp";
@@ -22,8 +22,8 @@ const Hero = () => {
         if (!ref.current) return;
 
         const y = window.scrollY;
-        ref.current.style.transform = `translate3d(0, ${y * 0.15}px, 0)`;
-        ref.current.style.opacity = `${Math.max(0, 1 - y / 600)}`;
+        ref.current.style.transform = `translate3d(0, ${y * 0.1}px, 0)`;
+        ref.current.style.opacity = `${Math.max(0, 1 - y / 760)}`;
       });
     };
 
@@ -51,110 +51,55 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-[#030712] pt-32 pb-24">
-      {/* Premium interactive GradientBlinds background */}
-      <div className="absolute inset-0 z-0 pointer-events-auto">
-        <GradientBlinds
-          className="absolute inset-0 h-full w-full"
-          dpr={isMobile ? 1 : 1.25}
-          paused={prefersReducedMotion}
-          gradientColors={["#B9F6FF", "#38BDF8", "#A78BFA"]}
-          angle={45}
-          noise={0.08}
-          blindCount={isMobile ? 10 : 18}
-          blindMinWidth={isMobile ? 112 : 80}
-          mouseDampening={0.2}
-          mirrorGradient
-          spotlightRadius={isMobile ? 0.42 : 0.38}
-          spotlightSoftness={1}
-          spotlightOpacity={0.65}
-          distortAmount={0.025}
-          shineDirection="left"
-        />
+    <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-[#07030d] pt-32 pb-24">
+      <div className="absolute inset-0 z-0 pointer-events-none">
+<GridScan
+  className="h-full w-full"
+  sensitivity={prefersReducedMotion ? 0.18 : 0.7}
+
+  // 🔴 THICKER LINES
+  lineThickness={isMobile ? 1.8 : 2.4}
+
+  // 🔵 BRIGHT CYAN GRID
+  linesColor="#06bffd"
+
+  gridScale={isMobile ? 0.13 : 0.1}
+
+  // 🔥 STRONG GLOW
+  scanColor="#06bffd"
+  scanOpacity={prefersReducedMotion ? 0.35 : isMobile ? 0.75 : 1.1}
+
+  enablePost={!prefersReducedMotion}
+
+  // 💥 BOOST BLOOM HARD
+  bloomIntensity={prefersReducedMotion ? 1.1 : isMobile ? 1.0 : 1.6}
+
+  chromaticAberration={prefersReducedMotion ? 0 : 0.003}
+  noiseIntensity={prefersReducedMotion ? 0.002 : 0.015}
+/>
       </div>
 
-      {/* Decorative glow layer */}
-      <div className="pointer-events-none absolute inset-0 z-[0]">
-        <div className="absolute top-[18%] left-[8%] h-2 w-2 rounded-full bg-cyan-100/80 shadow-[0_0_32px_rgba(186,247,255,0.55)] animate-pulse-glow" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-black/25" />
 
-        <div
-          className="absolute top-[30%] right-[12%] h-1.5 w-1.5 rounded-full bg-sky-200/70 shadow-[0_0_24px_rgba(56,189,248,0.45)] animate-pulse-glow"
-          style={{ animationDelay: "1s" }}
-        />
+      <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.04)_0%,rgba(0,0,0,0.28)_50%,rgba(0,0,0,0.72)_100%)]" />
 
-        <div
-          className="absolute bottom-[22%] left-[20%] h-2 w-2 rounded-full bg-violet-200/60 shadow-[0_0_28px_rgba(167,139,250,0.4)] animate-pulse-glow"
-          style={{ animationDelay: "2s" }}
-        />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-36 bg-gradient-to-b from-[#07030d] to-transparent" />
 
-        <svg
-          className="absolute right-[6%] top-[22%] h-40 w-40 opacity-25 animate-drift"
-          viewBox="0 0 100 100"
-          fill="none"
-        >
-          <circle
-            cx="50"
-            cy="50"
-            r="48"
-            stroke="rgba(185, 246, 255, 0.45)"
-            strokeWidth="0.5"
-          />
-          <circle
-            cx="50"
-            cy="50"
-            r="32"
-            stroke="rgba(167, 139, 250, 0.3)"
-            strokeWidth="0.3"
-          />
-        </svg>
-
-        <svg
-          className="absolute left-[4%] bottom-[16%] h-32 w-32 opacity-20 animate-drift"
-          style={{ animationDelay: "-6s" }}
-          viewBox="0 0 100 100"
-          fill="none"
-        >
-          <rect
-            x="2"
-            y="2"
-            width="96"
-            height="96"
-            stroke="rgba(185, 246, 255, 0.38)"
-            strokeWidth="0.4"
-          />
-          <rect
-            x="20"
-            y="20"
-            width="60"
-            height="60"
-            stroke="rgba(167, 139, 250, 0.28)"
-            strokeWidth="0.3"
-          />
-        </svg>
-      </div>
-
-      {/* Softer dark overlay for premium readability */}
-      <div className="absolute inset-0 z-[1] pointer-events-none bg-black/40" />
-
-      {/* Luxury vignette depth */}
-      <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.18)_52%,rgba(0,0,0,0.78)_100%)]" />
-
-      {/* Hero content */}
       <div ref={ref} className="container relative z-10">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs tracking-wider uppercase text-secondary-foreground animate-fade-in">
+        <div className="mx-auto max-w-5xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs uppercase tracking-wider text-secondary-foreground glass animate-fade-in">
             <Sparkles className="h-3.5 w-3.5 text-foreground" />
             <span>Engineering ambitious digital products</span>
           </div>
 
-          <h1 className="mt-8 font-display font-bold leading-[0.95] text-[clamp(2.75rem,8vw,7rem)] animate-fade-in-up">
+          <h1 className="mt-8 font-display text-[clamp(2.75rem,8vw,7rem)] font-bold leading-[0.95] animate-fade-in-up">
             <span className="block text-foreground">We build the</span>
             <span className="block text-foreground">future of business,</span>
             <span className="block text-foreground/90">pixel by pixel.</span>
           </h1>
 
           <p
-            className="mt-8 mx-auto max-w-2xl text-base md:text-lg text-secondary-foreground leading-relaxed animate-fade-in-up"
+            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-secondary-foreground md:text-lg animate-fade-in-up"
             style={{ animationDelay: "150ms" }}
           >
             Softgenix Infotech crafts cinematic web experiences, mobile apps,
@@ -163,7 +108,7 @@ const Hero = () => {
           </p>
 
           <div
-            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 animate-fade-in-up"
+            className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row animate-fade-in-up"
             style={{ animationDelay: "300ms" }}
           >
             <Button
@@ -189,7 +134,7 @@ const Hero = () => {
           </div>
 
           <div
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-2xl border border-white/10 bg-black/25 shadow-[0_24px_80px_-48px_rgba(0,0,0,0.95)] backdrop-blur-[2px] animate-fade-in-up"
+            className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-black/25 shadow-[0_24px_80px_-48px_rgba(0,0,0,0.95)] backdrop-blur-[2px] md:grid-cols-4 animate-fade-in-up"
             style={{ animationDelay: "450ms" }}
           >
             {[
@@ -199,7 +144,7 @@ const Hero = () => {
               { v: "24/7", l: "Support" },
             ].map((s) => (
               <div key={s.l} className="bg-black/45 px-6 py-6">
-                <div className="font-display text-2xl md:text-3xl font-semibold text-gradient">
+                <div className="font-display text-2xl font-semibold text-gradient md:text-3xl">
                   {s.v}
                 </div>
                 <div className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -212,12 +157,10 @@ const Hero = () => {
       </div>
 
       <div
-        className="pointer-events-none absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/70 animate-fade-in"
+        className="pointer-events-none absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground/70 animate-fade-in"
         style={{ animationDelay: "1s" }}
       >
-        <span className="text-[10px] uppercase tracking-[0.4em]">
-          Scroll
-        </span>
+        <span className="text-[10px] uppercase tracking-[0.4em]">Scroll</span>
         <span className="block h-10 w-px bg-gradient-to-b from-foreground/70 to-transparent" />
       </div>
     </section>
