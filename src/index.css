@@ -194,42 +194,42 @@
 }
 
 @layer utilities {
-  .animated-loop-text {
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: visible;
-  }
+.animated-loop-text {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: visible;
+}
 
-  /* 🔥 synced underline */
-  .animated-loop-underline {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0.08em;
-    display: flex;
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 0;
+.animated-loop-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  z-index: 0;
+  display: flex;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+}
 
-    transform: scaleX(0);
-    transform-origin: left center;
+.animated-loop-text.underline-active .animated-loop-underline {
+  animation: underline-reveal 1.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
-    /* ✅ synced with JS interval (1000ms) */
-   animation: underline-scroll 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-  }
-
-@keyframes underline-scroll {
+@keyframes underline-reveal {
   0% {
     transform: scaleX(0);
     opacity: 0;
   }
 
-  20% {
+  14% {
     opacity: 1;
   }
 
-  80% {
+  76% {
     transform: scaleX(1);
     opacity: 1;
   }
@@ -240,11 +240,11 @@
   }
 }
 
-  .underline-piece {
-    position: relative;
-    display: inline-block;
-    color: transparent;
-  }
+.underline-piece {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+}
 
 .underline-piece::after {
   content: "";
@@ -257,51 +257,50 @@
   background: #ffffff;
 }
 
-  /* gap under g */
-  .underline-piece.is-gap::after {
-    display: none;
-  }
+.underline-piece.is-gap::after {
+  display: none;
+}
 
-  .animated-loop-letter {
-    position: relative;
-    z-index: 2;
-    display: inline-block;
-    vertical-align: baseline;
-  }
+.animated-loop-letter {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  vertical-align: baseline;
+}
 
-  .loop-letter-window {
-    display: inline-block;
-    height: 1.05em;
-    overflow: hidden;
-    vertical-align: -0.06em;
-  }
+.loop-letter-window {
+  display: inline-block;
+  height: 1.05em;
+  overflow: hidden;
+  vertical-align: -0.06em;
+}
 
+.loop-letter-track {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05em;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.loop-letter-track span {
+  display: block;
+  height: 1.05em;
+}
+
+@media (prefers-reduced-motion: reduce) {
   .loop-letter-track {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.05em;
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
-    backface-visibility: hidden;
+    transition: none !important;
+    transform: none !important;
   }
 
-  .loop-letter-track span {
-    display: block;
-    height: 1.05em;
+  .animated-loop-underline {
+    animation: none !important;
+    transform: scaleX(1);
+    opacity: 1;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .loop-letter-track {
-      transition: none !important;
-      transform: none !important;
-    }
-
-    .animated-loop-underline {
-      animation: none;
-      transform: scaleX(1);
-      opacity: 1;
-    }
-  }
+}
 
   .font-display {
     font-family: "Sora", "Manrope", sans-serif;

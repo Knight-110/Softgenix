@@ -5,6 +5,7 @@ import LusionParticles from "@/components/LusionParticles";
 import AnimatedLoopText from "@/components/AnimatedLoopText";
 import { Button } from "@/components/ui/button";
 import { openWhatsApp } from "@/lib/whatsapp";
+import { ArrowUpRight } from "lucide-react";
 
 const LetsTalk = () => {
   useEffect(() => {
@@ -45,7 +46,7 @@ const LetsTalk = () => {
               className="h-16 rounded-full border-white/35 bg-white px-10 text-base font-semibold uppercase tracking-[0.04em] text-[#1b1d28] hover:bg-white/95"
               onClick={() => openWhatsApp("Hi Softgenix, I'd like to discuss a new project.")}
             >
-              <MessageCircle className="h-5 w-5" />
+             <ArrowUpRight className="h-5 w-5" />
               Chat on WhatsApp
             </Button>
           </div>
