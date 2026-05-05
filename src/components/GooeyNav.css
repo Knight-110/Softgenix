@@ -91,9 +91,7 @@
 .gooey-nav-container nav ul li.active::after {
   opacity: 1;
   transform: scale(1);
-  box-shadow:
-    0 0 18px rgba(255, 255, 255, 0.22),
-    0 0 38px rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1px 8px rgba(255, 255, 255, 0.06);
 }
 
 .gooey-nav-container .effect {
@@ -127,7 +125,7 @@
 
 .gooey-nav-container .effect.filter {
   z-index: 1;
-  filter: blur(7px) contrast(110);
+  filter: blur(4px) contrast(108);
   mix-blend-mode: screen;
 }
 
@@ -146,8 +144,8 @@
   border-radius: 999px;
   background: #ffffff;
   box-shadow:
-    0 0 22px rgba(255, 255, 255, 0.36),
-    0 0 46px rgba(255, 255, 255, 0.22);
+    0 0 6px rgba(255, 255, 255, 0.1),
+    0 0 12px rgba(255, 255, 255, 0.05);
   transform: scale(0);
   opacity: 0;
   z-index: -1;
