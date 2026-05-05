@@ -289,6 +289,29 @@
   height: 1.05em;
 }
 
+.cta-fill-text {
+  background-image:
+    linear-gradient(
+      102deg,
+      #eefcff 0%,
+      #d8f7ff 14%,
+      #8aefff 28%,
+      #f7fdff 40%,
+      #4fd8ff 54%,
+      #38bdf8 70%,
+      #e8fbff 84%,
+      #7dd3fc 100%
+    );
+  background-size: 240% 100%;
+  background-position: 0% 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-shadow:
+    0 0 18px rgba(103, 232, 249, 0.16),
+    0 0 42px rgba(56, 189, 248, 0.12);
+  animation: cta-fill-glint 6.2s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .loop-letter-track {
     transition: none !important;
@@ -299,6 +322,10 @@
     animation: none !important;
     transform: scaleX(1);
     opacity: 1;
+  }
+
+  .cta-fill-text {
+    animation: none !important;
   }
 }
 
@@ -349,6 +376,18 @@
     }
     100% {
       background-position: 200% 0;
+    }
+  }
+
+  @keyframes cta-fill-glint {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
     }
   }
 

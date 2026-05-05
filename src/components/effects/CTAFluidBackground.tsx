@@ -105,12 +105,14 @@ const fragmentShader = `
     float glow = smoothstep(0.5, 0.0, coreDist);
     float grain = (hash(gl_FragCoord.xy + uTime) - 0.5) * 0.035;
 
-    vec3 base = vec3(0.002, 0.004, 0.02);
-    vec3 bgColor = vec3(0.002, 0.006, 0.02);
-    vec3 deepBlue = vec3(0.02, 0.09, 0.18);
-    vec3 sky = vec3(0.22, 0.74, 0.97);
-    vec3 cyan = vec3(0.13, 0.83, 0.93);
-    vec3 coreColor = vec3(0.2, 0.8, 1.0);
+vec3 base = vec3(0.002, 0.003, 0.015);        // deeper black (more contrast)
+vec3 bgColor = vec3(0.01, 0.00, 0.03);        // slight purple tint background
+
+vec3 deepBlue = vec3(0.05, 0.02, 0.15);       // deep indigo (for depth)
+vec3 sky = vec3(0.55, 0.35, 1.0);             // soft violet glow
+vec3 cyan = vec3(0.85, 0.2, 1.0);             // magenta highlight (strong pop)
+
+vec3 coreColor = vec3(1.0, 0.35, 0.95);       // bright neon magenta (center energy)
 
     vec3 color = base;
     color = mix(bgColor, color, 0.75 + bg * 0.25);

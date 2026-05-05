@@ -89,17 +89,7 @@ const CTASection = () => {
                         WebkitClipPath: "inset(0 100% 0 0)",
                       }}
                     >
-                      <span
-                        className="block pb-[0.08em] text-transparent"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(90deg, #d8f3ff 0%, #a5f3fc 18%, #67e8f9 42%, #38bdf8 64%, #f0fdff 82%, #7dd3fc 100%)",
-                          backgroundSize: "220% 100%",
-                          backgroundClip: "text",
-                          WebkitBackgroundClip: "text",
-                          textShadow: "0 0 18px rgba(103, 232, 249, 0.18)",
-                        }}
-                      >
+                      <span className="cta-fill-text block pb-[0.08em] text-transparent">
                         <span className="block">Ready to make</span>
                         <span className="block">something extraordinary?</span>
                       </span>
