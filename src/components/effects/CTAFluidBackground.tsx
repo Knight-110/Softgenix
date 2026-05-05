@@ -20,6 +20,8 @@ const fragmentShader = `
   uniform vec2 uResolution;
   uniform vec2 uPointer;
   uniform float uEnergy;
+  uniform vec2 uShockOrigin;
+  uniform float uShockTime;
 
   varying vec2 vUv;
 
@@ -69,12 +71,20 @@ const fragmentShader = `
 
     vec2 pointer = (uPointer - 0.5) * vec2(1.2, -0.9);
     float time = uTime * 0.08;
+    vec2 shockOrigin = uShockOrigin;
 
     vec2 flow = centered * 1.55;
     flow += pointer * 0.22;
 
+    float dist = distance(centered, shockOrigin);
+    float shock = sin(dist * 40.0 - uShockTime * 6.0);
+    shock *= exp(-dist * 6.0);
+    shock = max(shock, 0.0);
+    flow += shock * 0.15;
+
     float primaryField = fbm(flow * 1.7 + vec2(time, -time * 0.7));
     float secondaryField = fbm(flow * 2.6 - vec2(time * 0.45, time * 0.9));
+    float bg = fbm(flow * 0.5 + vec2(uTime * 0.2));
 
     vec2 warped = flow;
     warped += 0.22 * vec2(
@@ -87,20 +97,31 @@ const fragmentShader = `
     ribbons = smoothstep(0.18, 0.88, ribbons);
     filaments = smoothstep(0.42, 0.92, filaments);
 
-    float core = ribbons * 0.62 + filaments * 0.26;
+    float energyField = ribbons * 0.62 + filaments * 0.26;
     float halo = smoothstep(1.05, 0.14, length(centered + pointer * 0.08));
+    float coreDist = length(centered + pointer * 0.2);
+    float core = smoothstep(0.25, 0.0, coreDist);
     float pulse = uEnergy * 0.16 * halo;
-    float grain = (hash(gl_FragCoord.xy + uTime) - 0.5) * 0.028;
+    float glow = smoothstep(0.5, 0.0, coreDist);
+    float grain = (hash(gl_FragCoord.xy + uTime) - 0.5) * 0.035;
 
-    vec3 base = vec3(0.008, 0.016, 0.05);
+    vec3 base = vec3(0.002, 0.004, 0.02);
+    vec3 bgColor = vec3(0.002, 0.006, 0.02);
     vec3 deepBlue = vec3(0.02, 0.09, 0.18);
     vec3 sky = vec3(0.22, 0.74, 0.97);
     vec3 cyan = vec3(0.13, 0.83, 0.93);
+    vec3 coreColor = vec3(0.2, 0.8, 1.0);
 
     vec3 color = base;
+    color = mix(bgColor, color, 0.75 + bg * 0.25);
     color += deepBlue * (0.35 + primaryField * 0.18) * halo;
-    color += sky * core * halo * 0.42;
-    color += cyan * pow(max(core + pulse, 0.0), 2.2) * 0.24;
+    color += sky * energyField * halo * 0.42;
+    color += cyan * pow(max(energyField + pulse, 0.0), 2.2) * 0.24;
+    color += coreColor * pow(core, 3.0) * 0.8;
+    color += coreColor * glow * 0.3;
+    color += sky * core * 0.65;
+    color += cyan * pow(core, 2.5) * 0.4;
+    color += vec3(shock) * 0.1;
     color += grain;
 
     float vignette = smoothstep(1.28, 0.22, length(centered));
@@ -124,6 +145,7 @@ const CTAFluidBackground = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const target = new Vec2(0.5, 0.5);
     const pointer = new Vec2(0.5, 0.5);
+    const shockOrigin = new Vec2(0, 0);
     const resolution = new Vec2(1, 1);
     const overlayTarget = host.parentElement ?? host;
 
@@ -131,6 +153,7 @@ const CTAFluidBackground = () => {
     let visible = true;
     let disposed = false;
     let energy = 0;
+    let shockStartTime = -1;
     let renderer: Renderer | null = null;
     let mesh: Mesh | null = null;
     let resizeObserver: ResizeObserver | null = null;
@@ -163,6 +186,8 @@ const CTAFluidBackground = () => {
         uResolution: { value: resolution },
         uPointer: { value: pointer },
         uEnergy: { value: 0 },
+        uShockOrigin: { value: shockOrigin },
+        uShockTime: { value: 1000 },
       },
     });
 
@@ -179,8 +204,11 @@ const CTAFluidBackground = () => {
       pointer.y += (target.y - pointer.y) * 0.06;
       energy += (0 - energy) * 0.04;
 
-      program.uniforms.uTime.value = time * 0.001;
+      const currentTime = time * 0.001;
+      program.uniforms.uTime.value = currentTime;
       program.uniforms.uEnergy.value = energy;
+      program.uniforms.uShockTime.value =
+        shockStartTime >= 0 ? currentTime - shockStartTime : 1000;
 
       renderer.render({ scene: mesh });
 
@@ -221,6 +249,10 @@ const CTAFluidBackground = () => {
 
       energy = Math.min(1, energy + 0.18);
       target.set(clampedX, clampedY);
+      shockOrigin.set(clampedX - 0.5, 0.5 - clampedY);
+      shockStartTime = performance.now() * 0.001;
+      program.uniforms.uShockOrigin.value = shockOrigin;
+      program.uniforms.uShockTime.value = 0;
       queueFrame();
     };
 
