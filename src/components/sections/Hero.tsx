@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
@@ -7,33 +7,9 @@ import { openWhatsApp } from "@/lib/whatsapp";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const Hero = () => {
-  const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    let raf = 0;
-
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-
-      raf = requestAnimationFrame(() => {
-        if (!ref.current) return;
-
-        const y = window.scrollY;
-        ref.current.style.transform = `translate3d(0, ${y * 0.1}px, 0)`;
-        ref.current.style.opacity = `${Math.max(0, 1 - y / 760)}`;
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -85,7 +61,7 @@ const Hero = () => {
 
       <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] h-36 bg-gradient-to-b from-[#07030d] to-transparent" />
 
-      <div ref={ref} className="container relative z-10">
+      <div className="container relative z-10">
         <div className="mx-auto max-w-5xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs uppercase tracking-wider text-secondary-foreground glass animate-fade-in">
             <Sparkles className="h-3.5 w-3.5 text-foreground" />
@@ -134,8 +110,7 @@ const Hero = () => {
           </div>
 
           <div
-            className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-black/25 shadow-[0_24px_80px_-48px_rgba(0,0,0,0.95)] backdrop-blur-[2px] md:grid-cols-4 animate-fade-in-up"
-            style={{ animationDelay: "450ms" }}
+            className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-black/25 shadow-[0_24px_80px_-48px_rgba(0,0,0,0.95)] backdrop-blur-[2px] md:grid-cols-4"
           >
             {[
               { v: "120+", l: "Projects Shipped" },
@@ -157,8 +132,7 @@ const Hero = () => {
       </div>
 
       <div
-        className="pointer-events-none absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground/70 animate-fade-in"
-        style={{ animationDelay: "1s" }}
+        className="pointer-events-none absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground/70"
       >
         <span className="text-[10px] uppercase tracking-[0.4em]">Scroll</span>
         <span className="block h-10 w-px bg-gradient-to-b from-foreground/70 to-transparent" />
