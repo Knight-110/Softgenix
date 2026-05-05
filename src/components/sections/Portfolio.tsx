@@ -2,24 +2,40 @@ import { ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
-    title: "Lumen Finance",
-    cat: "Web Platform",
-    desc: "A wealth-tech dashboard with realtime portfolio analytics and AI insights.",
+    title: "Enzo Salons",
+    cat: "Salon Website",
+    desc: "A brand-forward salon website focused on services, local trust, and appointment-ready browsing.",
+    url: "https://www.enzosalons.com/",
   },
   {
-    title: "Nova Retail",
-    cat: "E-commerce",
-    desc: "Headless commerce with 1.2s LCP and 4.7x return on ad spend in 90 days.",
+    title: "Touch & Glow Salons",
+    cat: "Beauty & Wellness",
+    desc: "A polished salon experience designed to showcase treatments, pricing, and a premium in-store feel online.",
+    url: "https://www.touchandglowsalons.com/",
   },
   {
-    title: "Pulse Health",
-    cat: "Mobile App",
-    desc: "Cross-platform health companion with on-device AI triage and chat support.",
+    title: "TravelMerge Holidays",
+    cat: "Travel Booking",
+    desc: "A travel platform built to highlight tour packages, destinations, and fast customer enquiry flows.",
+    url: "https://travelmergeholidays.com/",
   },
   {
-    title: "Atlas Logistics",
-    cat: "AI Chatbot",
-    desc: "WhatsApp assistant handling 70% of inbound queries with zero human handoff.",
+    title: "GP Cornaments",
+    cat: "Business Website",
+    desc: "A product-led company website structured to present offerings clearly and support lead generation.",
+    url: "https://gpcornaments.com/",
+  },
+  {
+    title: "TradeX",
+    cat: "Trading Platform",
+    desc: "A demo trading interface built around market visibility, live decision-making, and dashboard clarity.",
+    url: "https://tradex-frontend-37ly.onrender.com/",
+  },
+  {
+    title: "Jamia Faizul Uloom",
+    cat: "Education Website",
+    desc: "An institutional website for admissions, donations, and community outreach around Islamic education programs.",
+    url: "https://jamiafaizululoom.com/",
   },
 ];
 
@@ -42,8 +58,11 @@ const Portfolio = () => {
 
         <div className="mt-16 grid md:grid-cols-2 gap-6">
           {projects.map((project, i) => (
-            <article
+            <a
               key={project.title}
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
               className="reveal group relative rounded-3xl overflow-hidden glass-strong hover:-translate-y-1 transition-transform duration-500"
               data-delay={(i * 90).toString()}
             >
@@ -76,12 +95,15 @@ const Portfolio = () => {
                 <div>
                   <h3 className="font-display text-2xl font-semibold">{project.title}</h3>
                   <p className="mt-2 text-sm text-secondary-foreground leading-relaxed max-w-md">{project.desc}</p>
+                  <p className="mt-4 text-[11px] uppercase tracking-[0.24em] text-foreground/60">
+                    Visit live site
+                  </p>
                 </div>
                 <div className="h-11 w-11 rounded-full grid place-items-center bg-foreground/6 border border-border group-hover:bg-foreground group-hover:text-background group-hover:border-transparent transition-all duration-500">
                   <ArrowUpRight className="h-4 w-4" />
                 </div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </div>

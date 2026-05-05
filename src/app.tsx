@@ -13,7 +13,6 @@ import Contact from "./pages/Contact";
 import Index from "./pages/Index";
 import LetsTalk from "./pages/LetsTalk";
 import NotFound from "./pages/NotFound";
-import Process from "./pages/Process";
 import Services from "./pages/Services";
 import Work from "./pages/Work";
 
@@ -71,7 +70,6 @@ const App = () => {
                   <Route path="/" element={<Index />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/process" element={<Process />} />
                   <Route path="/portfolio" element={<Work />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/lets-talk" element={<LetsTalk />} />
