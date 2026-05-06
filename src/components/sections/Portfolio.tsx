@@ -206,16 +206,49 @@ const Portfolio = () => {
   return (
     <section id="portfolio" className="relative py-28 md:py-36">
       <div className="container">
-        <div className="flex items-end justify-between gap-8 flex-wrap reveal">
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-[11px] tracking-[0.3em] uppercase text-secondary-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-foreground/80" /> Selected Portfolio
-            </span>
-            <h2 className="mt-6 font-display text-4xl md:text-6xl font-bold leading-[1.05]">
-              Recent stories
-              <br />
-              <span className="text-foreground">we helped write.</span>
-            </h2>
+        <div className="reveal relative min-h-[420px] overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-[0_40px_120px_-70px_rgba(0,0,0,1)] md:min-h-[520px] md:rounded-[2.5rem]">
+          <video
+            className="absolute inset-0 h-full w-full object-cover opacity-55"
+            src="/portfolio/portfolio-hero.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.88),rgba(0,0,0,0.56),rgba(0,0,0,0.22))]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.22),transparent_35%),radial-gradient(circle_at_75%_30%,rgba(59,130,246,0.18),transparent_34%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,0.95))]" />
+
+          <div className="relative z-10 flex min-h-[420px] items-end p-7 md:min-h-[520px] md:p-12 lg:p-16">
+            <div className="max-w-3xl">
+              <span className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-secondary-foreground">
+                <span className="h-1.5 w-1.5 rounded-full bg-foreground/80" /> Selected Portfolio
+              </span>
+
+              <h2 className="mt-6 font-display text-4xl font-bold leading-[1.02] text-white md:text-6xl lg:text-7xl">
+                Recent stories
+                <br />
+                <span className="text-foreground">we helped write.</span>
+              </h2>
+
+              <div className="relative mt-6 max-w-xl overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/30 px-5 py-5 shadow-[0_20px_60px_-40px_rgba(0,0,0,0.95)] backdrop-blur-sm md:px-6 md:py-6">
+                <video
+                  className="absolute inset-0 h-full w-full object-cover opacity-40"
+                  src="/portfolio/portfolio-hero.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.86),rgba(0,0,0,0.52),rgba(0,0,0,0.34))]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_30%,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_82%_34%,rgba(59,130,246,0.14),transparent_32%)]" />
+                <p className="relative z-10 text-base leading-relaxed text-white/78 md:text-lg">
+                  Case studies shaped for growth, performance, and clarity.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -190,7 +190,7 @@ const GridScan = ({
       updateScanRing(scanZ);
 
       scanMaterial.opacity =
-        scanOpacity * (0.65 + Math.sin(t * 4.2) * 0.22);
+        scanOpacity * (0.9 + Math.sin(t * 4.2) * 0.15);
 
       lineMaterial.opacity =
         0.76 + Math.sin(t * 0.9) * 0.07;
