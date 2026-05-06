@@ -17,28 +17,33 @@ import Services from "./pages/Services";
 import Work from "./pages/Work";
 
 const queryClient = new QueryClient();
+const LOADER_SESSION_KEY = "softgenix_loader_seen";
 
 const App = () => {
-  const [showLoader, setShowLoader] = useState(
-    () => !sessionStorage.getItem("softgenix_loader_seen")
-  );
+  const [showLoader, setShowLoader] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return !window.sessionStorage.getItem(LOADER_SESSION_KEY);
+  });
 
   useEffect(() => {
-    const original = document.body.style.overflow;
+    const originalOverflow = document.body.style.overflow;
 
     if (showLoader) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = original;
+      document.body.style.overflow = originalOverflow;
     }
 
     return () => {
-      document.body.style.overflow = original;
+      document.body.style.overflow = originalOverflow;
     };
   }, [showLoader]);
 
   const handleLoaderComplete = useCallback(() => {
-    sessionStorage.setItem("softgenix_loader_seen", "1");
+    window.sessionStorage.setItem(LOADER_SESSION_KEY, "1");
     setShowLoader(false);
   }, []);
 
@@ -54,9 +59,9 @@ const App = () => {
             <Sonner />
 
             <motion.div
-              initial={{ opacity: 0.94 }}
-              animate={{ opacity: showLoader ? 0.94 : 1 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: showLoader ? 0.84 : 1, scale: showLoader ? 0.992 : 1 }}
+              animate={{ opacity: showLoader ? 0.9 : 1, scale: 1 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
               <BrowserRouter
                 future={{
@@ -79,7 +84,7 @@ const App = () => {
             </motion.div>
           </div>
 
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {showLoader ? <SiteLoader onComplete={handleLoaderComplete} /> : null}
           </AnimatePresence>
         </div>
