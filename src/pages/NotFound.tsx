@@ -1,24 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import CyberRunner404 from "@/components/game/CyberRunner404";
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-secondary-foreground">Oops! Page not found</p>
-        <Link to="/" className="text-foreground underline hover:text-foreground/80">
-          Return to Home
-        </Link>
-      </div>
-    </div>
-  );
-};
+const NotFound = () => <CyberRunner404 />;
 
 export default NotFound;
