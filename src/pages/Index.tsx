@@ -1,7 +1,6 @@
 import PageShell from "@/components/PageShell";
 import Hero from "@/components/sections/Hero";
 import TransitionStrip from "@/components/sections/TransitionStrip";
-import Services from "@/components/sections/Services";
 import About from "@/components/sections/About";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Process from "@/components/sections/Process";
@@ -19,10 +18,9 @@ const Index = () => {
 
         <Hero />
         <TransitionStrip />
-        <Services />
         <About />
-        <WhyChooseUs />
         <Process />
+        <WhyChooseUs />
         <Testimonials />
         <CTASection />
         <Contact />
