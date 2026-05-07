@@ -277,7 +277,7 @@ const ServiceVideo = ({
       <div className="h-full w-full bg-black">
         <video
           ref={videoRef}
-          className={`pointer-events-none h-full w-full ${fit === "contain" ? "object-contain bg-black p-2" : "object-cover"}`}
+          className={`pointer-events-none h-full w-full ${fit === "contain" ? "object-contain bg-black p-2 brightness-110 contrast-110 saturate-110" : "object-cover brightness-110 contrast-110 saturate-110"}`}
           muted
           loop
           playsInline
@@ -287,8 +287,8 @@ const ServiceVideo = ({
           <source src={src} type="video/mp4" />
         </video>
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.52),rgba(0,0,0,0.3)_34%,rgba(0,0,0,0.84)_100%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.4)_38%,rgba(0,0,0,0.3)_72%,rgba(0,0,0,0.55)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.01)_34%,rgba(0,0,0,0.44)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.12)_0%,rgba(0,0,0,0.03)_36%,rgba(0,0,0,0.02)_74%,rgba(0,0,0,0.06)_100%)]" />
     </div>
   );
 };
@@ -315,12 +315,12 @@ const TechLogoCursor = ({
   return (
     <div
       ref={cursorRef}
-      className={`pointer-events-none fixed left-0 top-0 z-[120] hidden h-14 w-14 will-change-transform md:block ${visible ? "opacity-100" : "opacity-0"}`}
+      className={`pointer-events-none fixed left-0 top-0 z-[120] hidden h-12 w-12 will-change-transform md:block ${visible ? "opacity-100" : "opacity-0"}`}
       style={{ transition: "opacity 220ms ease" }}
     >
       <div
         ref={cursorInnerRef}
-        className="relative flex h-14 w-14 items-center justify-center will-change-transform"
+        className="relative flex h-12 w-12 items-center justify-center will-change-transform"
         style={{ transformOrigin: "50% 50%" }}
       >
         <Icon
@@ -504,7 +504,7 @@ const Services = () => {
           </div>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-2">
           {services.map((service, i) => (
             <article
               key={service.title}
@@ -521,15 +521,14 @@ const Services = () => {
                 }}
               />
               <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent" />
-
-              <div className="relative flex min-h-[240px] flex-col rounded-[25px] bg-[#080808] p-5 md:min-h-[248px] md:p-6">
+              <div className="relative flex aspect-[1.95/1] min-h-[340px] w-full flex-col rounded-[25px] bg-[#080808] p-5 md:min-h-[390px] md:p-6">
                 <ServiceVideo
                   src={service.video}
                   poster={service.poster}
                   fit={service.mediaFit}
                   isActive={activeServiceVideo === service.title}
                 />
-                <div className="relative z-10 flex h-full flex-col rounded-[20px] bg-[linear-gradient(180deg,rgba(0,0,0,0.6),rgba(0,0,0,0.3)_30%,rgba(0,0,0,0.64)_72%,rgba(0,0,0,0.84)_100%)] p-4 backdrop-blur-[1px]">
+                <div className="relative z-10 flex h-full flex-col p-4">
                   <div className="flex items-start justify-between gap-4">
                     <div className="relative">
                       <div className="absolute inset-0 rounded-[18px] bg-cyan-300/10 blur-lg" />
@@ -543,36 +542,38 @@ const Services = () => {
                     </div>
                   </div>
 
-                  <div className="mt-5 flex-1">
-                    <h3 className="font-display text-[1.35rem] font-semibold leading-tight text-white">
+                  <div className="mt-6 max-w-[88%] md:max-w-[68%]">
+                    <h3 className="font-display text-[1.4rem] font-semibold leading-tight text-white">
                       {service.title}
                     </h3>
-                    <p className="mt-3 max-w-[34ch] text-sm leading-7 text-white/84">{service.desc}</p>
+                    <p className="mt-3 text-sm leading-7 text-white/90">{service.desc}</p>
+                  </div>
 
-                    <div className="mt-5 flex flex-wrap gap-2">
+                  <div className="mt-auto max-w-[94%] rounded-[20px] border border-white/10 bg-black/10 p-4">
+                    <div className="flex flex-wrap gap-2">
                       {service.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-white/12 bg-black/55 px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-white/72 backdrop-blur-sm"
+                          className="rounded-full border border-white/15 bg-black/35 px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
-                  </div>
 
-                  <div className="mt-4 flex items-center justify-between border-t border-white/12 pt-4">
-                    <div className="text-[10px] uppercase tracking-[0.22em] text-white/55">
-                      Project inquiry
+                    <div className="mt-4 flex items-center justify-between">
+                      <div className="text-[10px] uppercase tracking-[0.22em] text-white/60">
+                        Project inquiry
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => openWhatsApp(`Hi Softgenix, I want a quote for ${service.title}.`)}
+                        className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-black/42 px-3.5 py-2 text-[11px] font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-cyan-300/30 hover:shadow-[0_0_20px_rgba(34,211,238,0.12)]"
+                      >
+                        Get Quote
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => openWhatsApp(`Hi Softgenix, I want a quote for ${service.title}.`)}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-black/65 px-3.5 py-2 text-[11px] font-medium uppercase tracking-[0.2em] text-white backdrop-blur-sm transition-all duration-300 hover:border-cyan-300/30 hover:shadow-[0_0_20px_rgba(34,211,238,0.12)]"
-                    >
-                      Get Quote
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </button>
                   </div>
                 </div>
               </div>
@@ -580,41 +581,41 @@ const Services = () => {
           ))}
         </div>
 
-        <div className="mt-20">
+        <div className="mt-16">
           <div className="reveal max-w-3xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#050505] px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-white/60">
               <Blocks className="h-3.5 w-3.5" />
               Process
             </span>
-            <h3 className="mt-4 font-display text-2xl font-semibold leading-tight text-white md:text-3xl">
+            <h3 className="mt-5 font-display text-3xl font-semibold leading-tight text-white md:text-4xl">
               A structured workflow that keeps every delivery stage aligned.
             </h3>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/60">
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/60">
               Discovery, planning, design, engineering, QA, and launch follow one balanced system
               so progress stays visible and execution stays clean.
             </p>
           </div>
 
-          <div className="relative mt-6">
+          <div className="relative mt-8">
             <div className="pointer-events-none absolute left-[16.666%] right-[16.666%] top-1/2 hidden h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent xl:block" />
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
               {processSteps.map((step, i) => (
                 <article
                   key={step.step}
-                  className="reveal group relative overflow-hidden rounded-[22px] border border-white/10 bg-[#050505] p-4 md:p-5"
+                  className="reveal group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#050505] p-5 md:p-6"
                   data-delay={(i * 60).toString()}
                 >
-                  <div className="pointer-events-none absolute -right-2 top-1 font-display text-[3.7rem] leading-none text-white/[0.04]">
+                  <div className="pointer-events-none absolute -right-2 top-1 font-display text-[4.25rem] leading-none text-white/[0.04]">
                     {step.step}
                   </div>
                   <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/20 to-transparent" />
 
-                  <div className="relative flex min-h-[188px] flex-col">
+                  <div className="relative flex min-h-[220px] flex-col">
                     <div className="flex items-start justify-between gap-3">
                       <div className="relative">
                         <div className="absolute inset-0 rounded-2xl bg-cyan-300/10 blur-md" />
-                        <div className="relative grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-[#0a0a0a] text-white">
+                        <div className="relative grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-[#0a0a0a] text-white">
                           <step.icon className="h-4.5 w-4.5" />
                         </div>
                       </div>
@@ -624,8 +625,8 @@ const Services = () => {
                       </span>
                     </div>
 
-                    <h4 className="mt-4 font-display text-base font-semibold text-white">{step.title}</h4>
-                    <p className="mt-2 text-sm leading-6 text-white/60">{step.desc}</p>
+                    <h4 className="mt-5 font-display text-lg font-semibold text-white">{step.title}</h4>
+                    <p className="mt-3 text-sm leading-7 text-white/60">{step.desc}</p>
                   </div>
                 </article>
               ))}
