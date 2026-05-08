@@ -1,6 +1,5 @@
 import PageShell from "@/components/PageShell";
 import Hero from "@/components/sections/Hero";
-import TransitionStrip from "@/components/sections/TransitionStrip";
 import About from "@/components/sections/About";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Process from "@/components/sections/Process";
@@ -17,7 +16,6 @@ const Index = () => {
         </h1>
 
         <Hero />
-        <TransitionStrip />
         <About />
         <Process />
         <WhyChooseUs />
