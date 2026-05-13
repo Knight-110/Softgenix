@@ -327,26 +327,103 @@
 }
 
 .cta-fill-text {
-  background-image:
-    linear-gradient(
-      102deg,
-      #eefcff 0%,
-      #d8f7ff 14%,
-      #8aefff 28%,
-      #f7fdff 40%,
-      #4fd8ff 54%,
-      #38bdf8 70%,
-      #e8fbff 84%,
-      #7dd3fc 100%
-    );
   background-size: 240% 100%;
   background-position: 0% 50%;
   background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  animation: cta-fill-glint 6s linear infinite;
+}
+
+/* HOME — CYAN / ELECTRIC BLUE */
+.cta-fill-text.cta-fill-home {
+  background-image: linear-gradient(
+    102deg,
+    #ecfeff 0%,
+    #a5f3fc 14%,
+    #67e8f9 28%,
+    #38bdf8 46%,
+    #2563eb 68%,
+    #7dd3fc 84%,
+    #ecfeff 100%
+  );
+
   text-shadow:
-    0 0 18px rgba(103, 232, 249, 0.16),
-    0 0 42px rgba(56, 189, 248, 0.12);
-  animation: cta-fill-glint 6.2s linear infinite;
+    0 0 22px rgba(34, 211, 238, 0.22),
+    0 0 54px rgba(59, 130, 246, 0.18);
+}
+
+/* SERVICES — EMERALD / TEAL */
+.cta-fill-text.cta-fill-services {
+  background-image: linear-gradient(
+    102deg,
+    #ecfdf5 0%,
+    #a7f3d0 16%,
+    #34d399 34%,
+    #14b8a6 52%,
+    #0f766e 74%,
+    #5eead4 88%,
+    #ecfdf5 100%
+  );
+
+  text-shadow:
+    0 0 22px rgba(16, 185, 129, 0.22),
+    0 0 54px rgba(20, 184, 166, 0.18);
+}
+
+/* PORTFOLIO — PURPLE / MAGENTA */
+.cta-fill-text.cta-fill-portfolio {
+  background-image: linear-gradient(
+    102deg,
+    #faf5ff 0%,
+    #d8b4fe 14%,
+    #c084fc 32%,
+    #e879f9 48%,
+    #ec4899 70%,
+    #f0abfc 86%,
+    #faf5ff 100%
+  );
+
+  text-shadow:
+    0 0 22px rgba(192, 132, 252, 0.24),
+    0 0 54px rgba(236, 72, 153, 0.2);
+}
+
+/* ABOUT — SOFT AURORA BLUE */
+.cta-fill-text.cta-fill-about {
+  background-image: linear-gradient(
+    102deg,
+    #ffffff 0%,
+    #e0f2fe 18%,
+    #bae6fd 36%,
+    #93c5fd 56%,
+    #f8fafc 76%,
+    #7dd3fc 92%,
+    #ffffff 100%
+  );
+
+  text-shadow:
+    0 0 18px rgba(125, 211, 252, 0.18),
+    0 0 42px rgba(191, 219, 254, 0.14);
+}
+
+/* CONTACT — VIOLET / PINK */
+.cta-fill-text.cta-fill-contact {
+  background-image: linear-gradient(
+    102deg,
+    #fdf4ff 0%,
+    #f5d0fe 14%,
+    #e879f9 32%,
+    #d946ef 50%,
+    #fb7185 72%,
+    #c084fc 88%,
+    #fdf4ff 100%
+  );
+
+  text-shadow:
+    0 0 22px rgba(232, 121, 249, 0.24),
+    0 0 54px rgba(251, 113, 133, 0.2);
 }
 
 @media (prefers-reduced-motion: reduce) {

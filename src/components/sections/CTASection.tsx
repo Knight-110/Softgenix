@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CTAFluidBackground from "@/components/effects/CTAFluidBackground";
 import { Button } from "@/components/ui/button";
 import { openWhatsApp } from "@/lib/whatsapp";
+import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,8 @@ type CTAVariantCopy = {
   headlineLine1: string;
   headlineLine2: string;
   description: string;
+  overlayClass: string;
+  fillClass: string;
 };
 
 const CTA_COPY: Record<CTAVariant, CTAVariantCopy> = {
@@ -30,24 +33,32 @@ const CTA_COPY: Record<CTAVariant, CTAVariantCopy> = {
     headlineLine1: "Ready to build something",
     headlineLine2: "extraordinary?",
     description: "From idea to launch, we build digital experiences people remember.",
+    overlayClass: "from-cyan-500/20 via-sky-500/12 to-blue-600/24",
+    fillClass: "cta-fill-home",
   },
   services: {
     badge: "Let's engineer",
     headlineLine1: "Ready to build your digital",
     headlineLine2: "powerhouse?",
     description: "Web, apps, AI, automation, and marketing working together as one growth engine.",
+    overlayClass: "from-emerald-500/20 via-teal-500/12 to-cyan-500/22",
+    fillClass: "cta-fill-services",
   },
   portfolio: {
     badge: "Let's showcase",
     headlineLine1: "Ready to create something",
     headlineLine2: "unforgettable?",
     description: "Let's create a digital experience with clarity, emotion, and performance.",
+    overlayClass: "from-violet-500/22 via-fuchsia-500/14 to-pink-500/22",
+    fillClass: "cta-fill-portfolio",
   },
   about: {
     badge: "Let's create",
     headlineLine1: "Ready to build with",
     headlineLine2: "purpose?",
     description: "We combine strategy, design, and technology to create experiences that feel alive.",
+    overlayClass: "from-blue-200/14 via-sky-300/10 to-white/12",
+    fillClass: "cta-fill-about",
   },
   contact: {
     badge: "Let's talk",
@@ -55,6 +66,8 @@ const CTA_COPY: Record<CTAVariant, CTAVariantCopy> = {
     headlineLine2: "extraordinary?",
     description:
       "Tell us about your idea on WhatsApp. We usually reply within an hour during business hours.",
+    overlayClass: "from-violet-500/22 via-fuchsia-500/16 to-pink-500/24",
+    fillClass: "cta-fill-contact",
   },
 };
 
@@ -104,10 +117,7 @@ const CTASection = ({ variant = "home" }: CTASectionProps) => {
 
   return (
     <section ref={sectionRef} className="relative py-20 md:py-24">
-      <div
-        ref={stageRef}
-        className="flex min-h-[calc(100svh-112px)] items-center"
-      >
+      <div ref={stageRef} className="flex min-h-[calc(100svh-112px)] items-center">
         <div className="container">
           <div ref={contentRef} className="flex flex-col items-center">
             <div className="reveal flex w-full flex-col items-center">
@@ -118,8 +128,17 @@ const CTASection = ({ variant = "home" }: CTASectionProps) => {
 
               <div className="relative w-full overflow-hidden rounded-[2rem] glass-strong">
                 <div className="absolute inset-0 z-0 bg-[#020617]" />
+
                 <CTAFluidBackground />
-                <div className="absolute inset-0 z-[1] bg-gradient-to-br from-black/44 via-slate-950/26 to-black/58" />
+
+                <div
+                  className={cn(
+                    "absolute inset-0 z-[1] bg-gradient-to-br",
+                    copy.overlayClass
+                  )}
+                />
+
+                <div className="absolute inset-0 z-[1] bg-gradient-to-br from-black/38 via-slate-950/20 to-black/52" />
 
                 <div className="relative z-10 p-10 text-center md:p-20">
                   <h2 className="relative mx-auto mt-6 inline-block text-center font-display text-4xl font-bold leading-[1.02] md:text-7xl">
@@ -137,7 +156,12 @@ const CTASection = ({ variant = "home" }: CTASectionProps) => {
                         WebkitClipPath: "inset(0 100% 0 0)",
                       }}
                     >
-                      <span className="cta-fill-text block pb-[0.08em] text-transparent">
+                      <span
+                        className={cn(
+                          "cta-fill-text block pb-[0.08em] text-transparent",
+                          copy.fillClass
+                        )}
+                      >
                         <span className="block">{copy.headlineLine1}</span>
                         <span className="block">{copy.headlineLine2}</span>
                       </span>
@@ -153,7 +177,9 @@ const CTASection = ({ variant = "home" }: CTASectionProps) => {
                       variant="hero"
                       size="xl"
                       data-cursor-ignore
-                      onClick={() => openWhatsApp("Hi Softgenix, I'd like to discuss a new project. ")}
+                      onClick={() =>
+                        openWhatsApp("Hi Softgenix, I'd like to discuss a new project. ")
+                      }
                     >
                       Chat on WhatsApp
                       <ArrowRight className="h-4 w-4" />
@@ -173,4 +199,4 @@ const CTASection = ({ variant = "home" }: CTASectionProps) => {
   );
 };
 
-export default CTASection;
+export default CTASection;  
