@@ -14,7 +14,7 @@ const Work = () => {
       />
       <Portfolio />
       <Testimonials />
-      <CTASection />
+      <CTASection variant="portfolio" />
     </PageShell>
   );
 };

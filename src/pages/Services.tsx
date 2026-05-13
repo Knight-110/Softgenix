@@ -12,7 +12,7 @@ const Services = () => {
         description="We design, build, launch, and grow digital products with one senior team across engineering, design, AI, and marketing."
       />
       <ServicesSection />
-      <CTASection />
+      <CTASection variant="services" />
     </PageShell>
   );
 };

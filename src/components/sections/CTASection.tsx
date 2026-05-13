@@ -11,12 +11,60 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CTA_PIN_OFFSET = 112;
 
-const CTASection = () => {
+type CTAVariant = "home" | "services" | "portfolio" | "about" | "contact";
+
+type CTASectionProps = {
+  variant?: CTAVariant;
+};
+
+type CTAVariantCopy = {
+  badge: string;
+  headlineLine1: string;
+  headlineLine2: string;
+  description: string;
+};
+
+const CTA_COPY: Record<CTAVariant, CTAVariantCopy> = {
+  home: {
+    badge: "Let's build",
+    headlineLine1: "Ready to build something",
+    headlineLine2: "extraordinary?",
+    description: "From idea to launch, we build digital experiences people remember.",
+  },
+  services: {
+    badge: "Let's engineer",
+    headlineLine1: "Ready to build your digital",
+    headlineLine2: "powerhouse?",
+    description: "Web, apps, AI, automation, and marketing working together as one growth engine.",
+  },
+  portfolio: {
+    badge: "Let's showcase",
+    headlineLine1: "Ready to create something",
+    headlineLine2: "unforgettable?",
+    description: "Let's create a digital experience with clarity, emotion, and performance.",
+  },
+  about: {
+    badge: "Let's create",
+    headlineLine1: "Ready to build with",
+    headlineLine2: "purpose?",
+    description: "We combine strategy, design, and technology to create experiences that feel alive.",
+  },
+  contact: {
+    badge: "Let's talk",
+    headlineLine1: "Ready to create something",
+    headlineLine2: "extraordinary?",
+    description:
+      "Tell us about your idea on WhatsApp. We usually reply within an hour during business hours.",
+  },
+};
+
+const CTASection = ({ variant = "home" }: CTASectionProps) => {
   const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const fillRef = useRef<HTMLSpanElement | null>(null);
+  const copy = CTA_COPY[variant];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -65,7 +113,7 @@ const CTASection = () => {
             <div className="reveal flex w-full flex-col items-center">
               <span className="mb-6 inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-secondary-foreground">
                 <span className="h-1.5 w-1.5 rounded-full bg-foreground shadow-glow" />
-                Let's build
+                {copy.badge}
               </span>
 
               <div className="relative w-full overflow-hidden rounded-[2rem] glass-strong">
@@ -76,8 +124,8 @@ const CTASection = () => {
                 <div className="relative z-10 p-10 text-center md:p-20">
                   <h2 className="relative mx-auto mt-6 inline-block text-center font-display text-4xl font-bold leading-[1.02] md:text-7xl">
                     <span className="block pb-[0.08em] text-white">
-                      <span className="block">Ready to make</span>
-                      <span className="block">something extraordinary?</span>
+                      <span className="block">{copy.headlineLine1}</span>
+                      <span className="block">{copy.headlineLine2}</span>
                     </span>
 
                     <span
@@ -90,15 +138,14 @@ const CTASection = () => {
                       }}
                     >
                       <span className="cta-fill-text block pb-[0.08em] text-transparent">
-                        <span className="block">Ready to make</span>
-                        <span className="block">something extraordinary?</span>
+                        <span className="block">{copy.headlineLine1}</span>
+                        <span className="block">{copy.headlineLine2}</span>
                       </span>
                     </span>
                   </h2>
 
                   <p className="mx-auto mt-6 max-w-2xl text-lg text-secondary-foreground">
-                    Tell us about your idea on WhatsApp. We usually reply within an hour during
-                    business hours.
+                    {copy.description}
                   </p>
 
                   <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">

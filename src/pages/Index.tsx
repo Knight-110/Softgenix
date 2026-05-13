@@ -20,7 +20,7 @@ const Index = () => {
         <Process />
         <WhyChooseUs />
         <Testimonials />
-        <CTASection />
+        <CTASection variant="home" />
         <Contact />
       </>
     </PageShell>

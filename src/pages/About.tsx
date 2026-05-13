@@ -16,7 +16,7 @@ const About = () => {
       <AboutSection />
       <WhyChooseUs />
       <Testimonials />
-      <CTASection />
+      <CTASection variant="about" />
     </PageShell>
   );
 };
