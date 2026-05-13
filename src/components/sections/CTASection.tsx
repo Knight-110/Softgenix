@@ -129,7 +129,7 @@ const CTASection = ({ variant = "home" }: CTASectionProps) => {
               <div className="relative w-full overflow-hidden rounded-[2rem] glass-strong">
                 <div className="absolute inset-0 z-0 bg-[#020617]" />
 
-                <CTAFluidBackground />
+                <CTAFluidBackground variant={variant} />
 
                 <div
                   className={cn(

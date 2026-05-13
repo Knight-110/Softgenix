@@ -1,5 +1,70 @@
 import { useEffect, useRef } from "react";
-import { Mesh, Program, Renderer, Triangle, Vec2 } from "ogl";
+import { Mesh, Program, Renderer, Triangle, Vec2, Vec3 } from "ogl";
+
+type CTAVariant = "home" | "services" | "portfolio" | "about" | "contact";
+
+type CTAFluidBackgroundProps = {
+  variant?: CTAVariant;
+};
+
+const CTA_PALETTES: Record<
+  CTAVariant,
+  {
+    base: [number, number, number];
+    bg: [number, number, number];
+    deep: [number, number, number];
+    sky: [number, number, number];
+    cyan: [number, number, number];
+    core: [number, number, number];
+    clear: [number, number, number];
+  }
+> = {
+home: {
+  base: [0.001, 0.003, 0.012],
+  bg: [0.0, 0.012, 0.03],
+  deep: [0.01, 0.05, 0.12],
+  sky: [0.08, 0.35, 0.48],
+  cyan: [0.12, 0.42, 0.5],
+  core: [0.28, 0.55, 0.62],
+  clear: [0.001, 0.003, 0.012],
+},
+services: {
+  base: [0.001, 0.012, 0.01],
+  bg: [0.0, 0.025, 0.02],
+  deep: [0.01, 0.08, 0.06],
+  sky: [0.08, 0.42, 0.32],
+  cyan: [0.1, 0.45, 0.34],
+  core: [0.28, 0.58, 0.46],
+  clear: [0.001, 0.012, 0.01],
+},
+portfolio: {
+  base: [0.002, 0.002, 0.012],
+  bg: [0.012, 0.0, 0.022],
+  deep: [0.035, 0.015, 0.09],
+  sky: [0.24, 0.12, 0.46],
+  cyan: [0.36, 0.08, 0.48],
+  core: [0.5, 0.14, 0.42],
+  clear: [0.002, 0.002, 0.012],
+},
+about: {
+  base: [0.004, 0.006, 0.014],
+  bg: [0.012, 0.018, 0.032],
+  deep: [0.06, 0.1, 0.16],
+  sky: [0.24, 0.34, 0.46],
+  cyan: [0.32, 0.42, 0.52],
+  core: [0.5, 0.58, 0.65],
+  clear: [0.004, 0.006, 0.014],
+},
+contact: {
+  base: [0.012, 0.001, 0.016],
+  bg: [0.028, 0.0, 0.026],
+  deep: [0.1, 0.025, 0.12],
+  sky: [0.38, 0.1, 0.42],
+  cyan: [0.48, 0.13, 0.34],
+  core: [0.62, 0.28, 0.48],
+  clear: [0.012, 0.001, 0.016],
+},
+};
 
 const vertexShader = `
   attribute vec2 uv;
@@ -22,6 +87,13 @@ const fragmentShader = `
   uniform float uEnergy;
   uniform vec2 uShockOrigin;
   uniform float uShockTime;
+
+  uniform vec3 uBaseColor;
+  uniform vec3 uBgColor;
+  uniform vec3 uDeepColor;
+  uniform vec3 uSkyColor;
+  uniform vec3 uCyanColor;
+  uniform vec3 uCoreColor;
 
   varying vec2 vUv;
 
@@ -105,14 +177,12 @@ const fragmentShader = `
     float glow = smoothstep(0.5, 0.0, coreDist);
     float grain = (hash(gl_FragCoord.xy + uTime) - 0.5) * 0.035;
 
-vec3 base = vec3(0.002, 0.003, 0.015);        // deeper black (more contrast)
-vec3 bgColor = vec3(0.01, 0.00, 0.03);        // slight purple tint background
-
-vec3 deepBlue = vec3(0.05, 0.02, 0.15);       // deep indigo (for depth)
-vec3 sky = vec3(0.55, 0.35, 1.0);             // soft violet glow
-vec3 cyan = vec3(0.85, 0.2, 1.0);             // magenta highlight (strong pop)
-
-vec3 coreColor = vec3(1.0, 0.35, 0.95);       // bright neon magenta (center energy)
+    vec3 base = uBaseColor;
+    vec3 bgColor = uBgColor;
+    vec3 deepBlue = uDeepColor;
+    vec3 sky = uSkyColor;
+    vec3 cyan = uCyanColor;
+    vec3 coreColor = uCoreColor;
 
     vec3 color = base;
     color = mix(bgColor, color, 0.75 + bg * 0.25);
@@ -134,7 +204,9 @@ vec3 coreColor = vec3(1.0, 0.35, 0.95);       // bright neon magenta (center ene
   }
 `;
 
-const CTAFluidBackground = () => {
+const toVec3 = (value: [number, number, number]) => new Vec3(value[0], value[1], value[2]);
+
+const CTAFluidBackground = ({ variant = "home" }: CTAFluidBackgroundProps) => {
   const hostRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -142,6 +214,8 @@ const CTAFluidBackground = () => {
     if (!host) {
       return;
     }
+
+    const palette = CTA_PALETTES[variant] ?? CTA_PALETTES.home;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -176,7 +250,7 @@ const CTAFluidBackground = () => {
     const gl = renderer.gl;
     gl.canvas.className = "absolute inset-0 h-full w-full";
     gl.canvas.setAttribute("aria-hidden", "true");
-    gl.clearColor(0.008, 0.016, 0.05, 1);
+    gl.clearColor(palette.clear[0], palette.clear[1], palette.clear[2], 1);
     host.appendChild(gl.canvas);
 
     const geometry = new Triangle(gl);
@@ -190,6 +264,13 @@ const CTAFluidBackground = () => {
         uEnergy: { value: 0 },
         uShockOrigin: { value: shockOrigin },
         uShockTime: { value: 1000 },
+
+        uBaseColor: { value: toVec3(palette.base) },
+        uBgColor: { value: toVec3(palette.bg) },
+        uDeepColor: { value: toVec3(palette.deep) },
+        uSkyColor: { value: toVec3(palette.sky) },
+        uCyanColor: { value: toVec3(palette.cyan) },
+        uCoreColor: { value: toVec3(palette.core) },
       },
     });
 
@@ -282,6 +363,7 @@ const CTAFluidBackground = () => {
       },
       { threshold: 0.08 }
     );
+
     intersectionObserver.observe(host);
 
     overlayTarget.addEventListener("pointermove", updatePointer, { passive: true });
@@ -307,7 +389,7 @@ const CTAFluidBackground = () => {
       gl.getExtension("WEBGL_lose_context")?.loseContext();
       gl.canvas.remove();
     };
-  }, []);
+  }, [variant]);
 
   return <div ref={hostRef} className="pointer-events-none absolute inset-0 z-0" aria-hidden="true" />;
 };
