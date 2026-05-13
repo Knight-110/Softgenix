@@ -462,7 +462,7 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="relative overflow-hidden bg-black py-28 md:py-36">
+    <section id="services" className="relative overflow-hidden bg-black/50 py-28 md:py-36">
       <TechLogoCursor
         cursorRef={cursorRef}
         cursorInnerRef={cursorInnerRef}
@@ -477,7 +477,7 @@ const Services = () => {
 
       <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="reveal max-w-4xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#050505] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/60">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#050505]/50 px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/60">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_16px_rgba(34,211,238,0.45)]" />
             Services
           </span>
@@ -496,7 +496,7 @@ const Services = () => {
             {heroPills.map((pill) => (
               <span
                 key={pill}
-                className="rounded-full border border-white/10 bg-[#080808] px-4 py-2 text-[11px] uppercase tracking-[0.24em] text-white/70"
+                className="rounded-full border border-white/10 bg-[#080808]/50 px-4 py-2 text-[11px] uppercase tracking-[0.24em] text-white/70"
               >
                 {pill}
               </span>
@@ -508,7 +508,7 @@ const Services = () => {
           {services.map((service, i) => (
             <article
               key={service.title}
-              className="reveal group relative overflow-hidden rounded-[26px] border border-white/10 bg-[#050505] p-[1px]"
+              className="reveal group relative overflow-hidden rounded-[26px] border border-white/10 bg-[#050505]/50 p-[1px]"
               data-delay={(i * 70).toString()}
               onMouseEnter={() => setActiveServiceVideo(service.title)}
               onMouseLeave={() => setActiveServiceVideo((current) => (current === service.title ? null : current))}
@@ -521,7 +521,7 @@ const Services = () => {
                 }}
               />
               <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent" />
-              <div className="relative flex aspect-[1.95/1] min-h-[340px] w-full flex-col rounded-[25px] bg-[#080808] p-5 md:min-h-[390px] md:p-6">
+              <div className="relative flex aspect-[1.95/1] min-h-[340px] w-full flex-col rounded-[25px] bg-[#080808]/50 p-5 md:min-h-[390px] md:p-6">
                 <ServiceVideo
                   src={service.video}
                   poster={service.poster}
@@ -532,7 +532,7 @@ const Services = () => {
                   <div className="flex items-start justify-between gap-4">
                     <div className="relative">
                       <div className="absolute inset-0 rounded-[18px] bg-cyan-300/10 blur-lg" />
-                      <div className="relative grid h-13 w-13 place-items-center rounded-[18px] border border-white/10 bg-[#0a0a0a] text-white shadow-[0_0_18px_rgba(34,211,238,0.08)]">
+                      <div className="relative grid h-13 w-13 place-items-center rounded-[18px] border border-white/10 bg-[#0a0a0a]/50 text-white shadow-[0_0_18px_rgba(34,211,238,0.08)]">
                         <service.icon className="h-5 w-5" />
                       </div>
                     </div>
@@ -583,7 +583,7 @@ const Services = () => {
 
         <div className="mt-16">
           <div className="reveal max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#050505] px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-white/60">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#050505]/50 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-white/60">
               <Blocks className="h-3.5 w-3.5" />
               Process
             </span>
@@ -603,7 +603,7 @@ const Services = () => {
               {processSteps.map((step, i) => (
                 <article
                   key={step.step}
-                  className="reveal group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#050505] p-5 md:p-6"
+                  className="reveal group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#050505]/50 p-5 md:p-6"
                   data-delay={(i * 60).toString()}
                 >
                   <div className="pointer-events-none absolute -right-2 top-1 font-display text-[4.25rem] leading-none text-white/[0.04]">
@@ -615,12 +615,12 @@ const Services = () => {
                     <div className="flex items-start justify-between gap-3">
                       <div className="relative">
                         <div className="absolute inset-0 rounded-2xl bg-cyan-300/10 blur-md" />
-                        <div className="relative grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-[#0a0a0a] text-white">
+                        <div className="relative grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-[#0a0a0a]/50 text-white">
                           <step.icon className="h-4.5 w-4.5" />
                         </div>
                       </div>
 
-                      <span className="rounded-full border border-white/10 bg-[#0a0a0a] px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-white/50">
+                      <span className="rounded-full border border-white/10 bg-[#0a0a0a]/50 px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-white/50">
                         {step.step}
                       </span>
                     </div>
@@ -636,7 +636,7 @@ const Services = () => {
 
         <div className="mt-16">
           <div className="reveal max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#050505] px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-white/60">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#050505]/50 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-white/60">
               <Braces className="h-3.5 w-3.5" />
               Technology
             </span>
@@ -653,14 +653,14 @@ const Services = () => {
             {radarGroups.map((group) => (
               <span
                 key={group}
-                className="rounded-full border border-white/10 bg-[#050505] px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-white/55"
+                className="rounded-full border border-white/10 bg-[#050505]/50 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-white/55"
               >
                 {group}
               </span>
             ))}
           </div>
 
-          <div className="relative mt-6 overflow-hidden rounded-[28px] border border-white/10 bg-[#050505] p-4 sm:p-5">
+          <div className="relative mt-6 overflow-hidden rounded-[28px] border border-white/10 bg-[#050505]/50 p-4 sm:p-5">
             <div className="pointer-events-none absolute inset-0 opacity-[0.1] [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:28px_28px]" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/20 to-transparent" />
             <div className="pointer-events-none absolute inset-x-0 top-10 h-px bg-gradient-to-r from-transparent via-cyan-300/16 to-transparent opacity-60 animate-pulse" />
@@ -672,7 +672,7 @@ const Services = () => {
                 return (
                   <article
                     key={tech.name}
-                    className={`reveal group relative overflow-hidden rounded-[18px] border border-white/10 bg-[#080808] p-[1px] transition-transform duration-200 ${isDesktopCursor ? "cursor-none select-none" : "select-none"}`}
+                    className={`reveal group relative overflow-hidden rounded-[18px] border border-white/10 bg-[#080808]/50 p-[1px] transition-transform duration-200 ${isDesktopCursor ? "cursor-none select-none" : "select-none"}`}
                     data-delay={((i % 12) * 24).toString()}
                     style={
                       {
@@ -692,8 +692,8 @@ const Services = () => {
                       }}
                     />
 
-                    <div className="relative flex h-[78px] items-center gap-3 rounded-[17px] bg-[#0a0a0a] px-3.5 transition-transform duration-300 group-hover:-translate-y-0.5">
-                      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-[#050505]">
+                    <div className="relative flex h-[78px] items-center gap-3 rounded-[17px] bg-[#0a0a0a]/50 px-3.5 transition-transform duration-300 group-hover:-translate-y-0.5">
+                      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-[#050505]/50">
                         <Icon className={`h-6 w-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 ${tech.iconClassName}`} />
                       </div>
 

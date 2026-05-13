@@ -13,7 +13,7 @@ const PageIntro = ({ eyebrow, title, description }: PageIntroProps) => {
       </div>
 
       <div className="container">
-        <div className="reveal max-w-4xl rounded-[2rem] border border-white/10 bg-black/70 px-6 py-12 shadow-[0_30px_90px_-50px_rgba(0,0,0,0.95)] backdrop-blur-md md:px-10 md:py-14">
+        <div className="reveal max-w-4xl rounded-[2rem] border border-white/10 bg-black/50 px-6 py-12 shadow-[0_30px_90px_-50px_rgba(0,0,0,0.95)] backdrop-blur-md md:px-10 md:py-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-zinc-300">
             <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
             {eyebrow}
