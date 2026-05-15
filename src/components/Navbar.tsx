@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import GooeyNav from "@/components/GooeyNav";
 import { Button } from "@/components/ui/button";
@@ -17,8 +17,12 @@ const gooeyItems = links.map((link) => ({
   href: link.to,
 }));
 
+const letsTalkVideoSrc = "/lets-talk/watermarked_preview.mp4";
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const letsTalkDesktopVideoRef = useRef<HTMLVideoElement>(null);
+  const letsTalkMobileVideoRef = useRef<HTMLVideoElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,6 +38,18 @@ const Navbar = () => {
   const handleOpenContact = () => {
     setOpen(false);
     navigate("/lets-talk");
+  };
+
+  const playLetsTalkVideo = (video: HTMLVideoElement | null) => {
+    if (!video) return;
+    video.currentTime = 0;
+    void video.play();
+  };
+
+  const stopLetsTalkVideo = (video: HTMLVideoElement | null) => {
+    if (!video) return;
+    video.pause();
+    video.currentTime = 0;
   };
 
   return (
@@ -82,21 +98,35 @@ const Navbar = () => {
               variant="glass"
               size="sm"
               onClick={handleOpenContact}
-              className="group relative hidden h-10 overflow-hidden rounded-full border border-white/15 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(77,208,255,0.14)_48%,rgba(255,255,255,0.08))] px-1 font-display text-[11px] uppercase tracking-[0.28em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_12px_26px_-22px_rgba(77,208,255,0.45)] transition-all duration-500 hover:-translate-y-0.5 hover:border-white/35 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.24),0_16px_34px_-20px_rgba(77,208,255,0.42)] sm:inline-flex"
+              onMouseEnter={() => playLetsTalkVideo(letsTalkDesktopVideoRef.current)}
+              onMouseLeave={() => stopLetsTalkVideo(letsTalkDesktopVideoRef.current)}
+              className="group relative hidden h-12 overflow-hidden rounded-full border border-white/14 bg-[linear-gradient(166deg,rgba(28,34,42,0.56)_0%,rgba(10,13,18,0.96)_62%,rgba(5,7,10,0.99)_100%)] px-3.5 font-display text-[10px] font-medium uppercase tracking-[0.18em] text-white/84 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-11px_18px_rgba(0,0,0,0.42),0_10px_18px_-14px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out hover:-translate-y-[1px] hover:border-white/24 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_-11px_18px_rgba(0,0,0,0.46),0_14px_22px_-14px_rgba(0,0,0,0.95)] active:translate-y-0 active:scale-[0.985] sm:inline-flex"
             >
               <span
-                className="pointer-events-none absolute inset-[1px] rounded-full bg-[linear-gradient(135deg,rgba(7,10,18,0.98),rgba(13,19,34,0.9)_42%,rgba(10,17,31,0.98))]"
+                className="pointer-events-none absolute inset-[1px] overflow-hidden rounded-full"
                 aria-hidden="true"
-              />
-              <span
-                className="pointer-events-none absolute inset-y-[5px] left-[-30%] w-[34%] rounded-full bg-[linear-gradient(90deg,transparent,rgba(125,233,255,0.9),transparent)] blur-md opacity-70 transition-all duration-700 group-hover:left-[96%]"
-                aria-hidden="true"
-              />
-              <span
-                className="relative h-7 w-7 rounded-full border border-white/12 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.95),rgba(125,233,255,0.45)_38%,rgba(21,35,68,0.2)_72%,transparent_76%)] shadow-[0_0_18px_rgba(125,233,255,0.2)] transition-transform duration-500 group-hover:scale-105 group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
-              <span className="relative px-3 transition-transform duration-500 group-hover:translate-x-[1px]">
+              >
+                <video
+                  ref={letsTalkDesktopVideoRef}
+                  className="h-full w-full scale-[1.32] object-cover brightness-[0.68] contrast-[1.34] saturate-[1.2] transition-[filter,transform] duration-700 ease-out group-hover:brightness-[0.82] group-hover:contrast-[1.42] group-hover:saturate-[1.3] group-hover:scale-[1.38]"
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-hidden="true"
+                >
+                  <source src={letsTalkVideoSrc} type="video/mp4" />
+                </video>
+                <span
+                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(102deg,transparent_22%,rgba(138,224,255,0.3)_48%,transparent_74%)] opacity-45 mix-blend-screen transition-opacity duration-500 group-hover:opacity-72"
+                  aria-hidden="true"
+                />
+                <span
+                  className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),inset_0_-10px_18px_rgba(0,0,0,0.52),inset_0_12px_20px_rgba(0,0,0,0.24)]"
+                  aria-hidden="true"
+                />
+              </span>
+              <span className="relative z-[1] transition-colors duration-300 group-hover:text-white">
                 LET&apos;S TALK
               </span>
             </Button>
@@ -149,22 +179,36 @@ const Navbar = () => {
             <li className="p-2">
               <Button
                 variant="glass"
-                className="group relative w-full overflow-hidden rounded-full border border-white/15 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(77,208,255,0.14)_48%,rgba(255,255,255,0.08))] py-1 pl-1 pr-3 font-display text-[11px] uppercase tracking-[0.24em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_12px_26px_-22px_rgba(77,208,255,0.45)] transition-all duration-500 hover:border-white/35 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.24),0_16px_34px_-20px_rgba(77,208,255,0.42)]"
+                className="group relative h-12 w-full overflow-hidden rounded-full border border-white/14 bg-[linear-gradient(166deg,rgba(28,34,42,0.56)_0%,rgba(10,13,18,0.96)_62%,rgba(5,7,10,0.99)_100%)] px-3.5 py-1 font-display text-[10px] font-medium uppercase tracking-[0.18em] text-white/84 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-11px_18px_rgba(0,0,0,0.42),0_10px_18px_-14px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out hover:-translate-y-[1px] hover:border-white/24 hover:text-white hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_-11px_18px_rgba(0,0,0,0.46),0_14px_22px_-14px_rgba(0,0,0,0.95)] active:translate-y-0 active:scale-[0.985]"
                 onClick={handleOpenContact}
+                onMouseEnter={() => playLetsTalkVideo(letsTalkMobileVideoRef.current)}
+                onMouseLeave={() => stopLetsTalkVideo(letsTalkMobileVideoRef.current)}
               >
                 <span
-                  className="pointer-events-none absolute inset-[1px] rounded-full bg-[linear-gradient(135deg,rgba(7,10,18,0.98),rgba(13,19,34,0.9)_42%,rgba(10,17,31,0.98))]"
+                  className="pointer-events-none absolute inset-[1px] overflow-hidden rounded-full"
                   aria-hidden="true"
-                />
-                <span
-                  className="pointer-events-none absolute inset-y-[7px] left-[-30%] w-[34%] rounded-full bg-[linear-gradient(90deg,transparent,rgba(125,233,255,0.9),transparent)] blur-md opacity-70 transition-all duration-700 group-hover:left-[96%]"
-                  aria-hidden="true"
-                />
-                <span
-                  className="relative h-8 w-8 rounded-full border border-white/12 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.95),rgba(125,233,255,0.45)_38%,rgba(21,35,68,0.2)_72%,transparent_76%)] shadow-[0_0_18px_rgba(125,233,255,0.2)] transition-transform duration-500 group-hover:scale-105 group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-                <span className="relative px-3 transition-transform duration-500 group-hover:translate-x-[1px]">
+                >
+                  <video
+                    ref={letsTalkMobileVideoRef}
+                    className="h-full w-full scale-[1.32] object-cover brightness-[0.68] contrast-[1.34] saturate-[1.2] transition-[filter,transform] duration-700 ease-out group-hover:brightness-[0.82] group-hover:contrast-[1.42] group-hover:saturate-[1.3] group-hover:scale-[1.38]"
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-hidden="true"
+                  >
+                    <source src={letsTalkVideoSrc} type="video/mp4" />
+                  </video>
+                  <span
+                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(102deg,transparent_22%,rgba(138,224,255,0.3)_48%,transparent_74%)] opacity-45 mix-blend-screen transition-opacity duration-500 group-hover:opacity-72"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),inset_0_-10px_18px_rgba(0,0,0,0.52),inset_0_12px_20px_rgba(0,0,0,0.24)]"
+                    aria-hidden="true"
+                  />
+                </span>
+                <span className="relative z-[1] transition-colors duration-300 group-hover:text-white">
                   LET&apos;S TALK
                 </span>
               </Button>
