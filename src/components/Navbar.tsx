@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import GooeyNav from "@/components/GooeyNav";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/softgenix-logo.jpeg";
+import logo from "@/assets/softgenic-logo-removebg-preview.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -32,7 +32,11 @@ const Navbar = () => {
 
   const activeIndex = Math.max(
     0,
-    gooeyItems.findIndex((item) => item.href === location.pathname)
+    gooeyItems.findIndex((item) =>
+      item.href === "/"
+        ? location.pathname === "/"
+        : location.pathname === item.href || location.pathname.startsWith(`${item.href}/`)
+    )
   );
 
   const handleOpenContact = () => {
@@ -58,23 +62,39 @@ const Navbar = () => {
         <nav className="flex items-center justify-between gap-6 px-4 py-3 md:px-6">
           <Link
             to="/"
-            className="group flex items-center gap-3"
+            className="group flex items-center transition-all duration-500 ease-out hover:-translate-y-px hover:opacity-95"
             aria-label="Softgenix Infotech home"
             onClick={() => setOpen(false)}
           >
-            <span className="relative h-10 w-10 overflow-hidden rounded-xl ring-1 ring-white/25 shadow-[0_0_28px_rgba(255,255,255,0.12)]">
-              <img
-                src={logo}
-                alt="Softgenix Infotech logo"
-                className="h-full w-full object-cover"
-              />
+            <span
+              className="relative h-12 w-12 shrink-0 sm:h-14 sm:w-14"
+              aria-hidden="true"
+              style={{
+                backgroundColor: "#f5f5f5",
+                WebkitMaskImage: `url(${logo})`,
+                maskImage: `url(${logo})`,
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+              }}
+            >
+              <span className="sr-only">Softgenix Infotech logo</span>
             </span>
 
-            <span className="hidden flex-col leading-none sm:flex">
-              <span className="font-display text-base font-semibold tracking-wider text-white">
+            <span className="hidden translate-y-[0.5px] flex-col justify-center leading-[0.93] antialiased sm:flex">
+              <span
+                className="font-display text-[1.02rem] font-semibold tracking-[0.09em] text-[#f5f5f5]"
+                style={{ textRendering: "geometricPrecision" }}
+              >
                 SOFTGENIX
               </span>
-              <span className="text-[10px] tracking-[0.3em] text-zinc-400">
+              <span
+                className="mt-[0.34rem] text-[6.9px] tracking-[0.5em] text-white/60"
+                style={{ textRendering: "geometricPrecision" }}
+              >
                 INFOTECH
               </span>
             </span>
